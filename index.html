@@ -1,0 +1,3261 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>AutoParts Hub — автозапчасти</title>
+
+<meta name="description"
+content="AutoParts Hub — поиск автозапчастей, оригиналов и аналогов">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --dark:#07111f;
+  --dark2:#0f2340;
+  --dark3:#132f55;
+  --orange:#ff9f0a;
+  --orange2:#ffc247;
+  --blue:#2563eb;
+  --cyan:#22c7f2;
+  --telegram:#229ed9;
+  --green:#16a34a;
+  --red:#dc2626;
+  --purple:#7c3aed;
+  --gray:#64748b;
+  --light:#eef3f8;
+  --white:#fff;
+  --border:#dce5ef;
+  --shadow:0 12px 35px rgba(15,23,42,.10);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:#101827;
+  background:
+    radial-gradient(circle at 10% 5%,rgba(34,199,242,.12),transparent 25%),
+    radial-gradient(circle at 90% 10%,rgba(255,159,10,.13),transparent 25%),
+    linear-gradient(180deg,#f7fafc 0%,#eef3f8 100%);
+  line-height:1.45;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* HEADER */
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  color:#fff;
+  padding:15px 14px 19px;
+  background:
+    radial-gradient(circle at 80% 0%,rgba(37,99,235,.35),transparent 35%),
+    linear-gradient(135deg,var(--dark),var(--dark2));
+  box-shadow:0 8px 30px rgba(0,0,0,.22);
+}
+
+.header-inner{
+  max-width:1180px;
+  margin:auto;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:-.8px;
+}
+
+.logo span{
+  color:var(--orange);
+}
+
+.logo small{
+  display:block;
+  color:#9fb2c9;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.5px;
+  margin-top:1px;
+}
+
+.telegram-top{
+  border:0;
+  color:#fff;
+  background:linear-gradient(135deg,#229ed9,#168dcc);
+  border-radius:13px;
+  padding:10px 13px;
+  font-weight:850;
+  box-shadow:0 5px 15px rgba(34,158,217,.25);
+}
+
+.search-area{
+  display:flex;
+  gap:8px;
+}
+
+.search-wrapper{
+  position:relative;
+  flex:1;
+}
+
+.search{
+  width:100%;
+  min-height:54px;
+  padding:15px 48px 15px 17px;
+  border:2px solid transparent;
+  outline:none;
+  border-radius:16px;
+  background:#fff;
+  color:#111827;
+  font-size:16px;
+  box-shadow:0 9px 28px rgba(0,0,0,.17);
+}
+
+.search:focus{
+  border-color:var(--orange);
+}
+
+.search-icon{
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:21px;
+  pointer-events:none;
+}
+
+.search-button{
+  flex:0 0 auto;
+  min-height:54px;
+  border:0;
+  border-radius:15px;
+  padding:0 17px;
+  background:var(--orange);
+  color:#111827;
+  font-weight:900;
+  box-shadow:0 8px 20px rgba(245,158,11,.25);
+}
+
+/* MAIN */
+
+main{
+  max-width:1180px;
+  margin:auto;
+  padding:20px 14px 70px;
+}
+
+/* HERO */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  color:#fff;
+  border-radius:27px;
+  padding:28px 20px;
+  margin-bottom:24px;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(34,199,242,.25),transparent 28%),
+    radial-gradient(circle at 20% 100%,rgba(255,159,10,.18),transparent 32%),
+    linear-gradient(135deg,#0a1729,#123258 65%,#10284a);
+  box-shadow:var(--shadow);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-70px;
+  bottom:-80px;
+  border-radius:50%;
+  border:30px solid rgba(255,255,255,.05);
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:760px;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.13);
+  color:#d9e9fa;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:13px;
+}
+
+.hero h1{
+  font-size:31px;
+  line-height:1.08;
+  margin-bottom:12px;
+  letter-spacing:-.7px;
+}
+
+.hero h1 span{
+  color:var(--orange);
+}
+
+.hero p{
+  color:#c5d4e5;
+  font-size:15px;
+  margin-bottom:20px;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.hero-button{
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  font-weight:900;
+}
+
+.hero-button.primary{
+  background:var(--orange);
+  color:#111827;
+}
+
+.hero-button.secondary{
+  color:#fff;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.16);
+}
+
+.advantages{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin-top:21px;
+}
+
+.advantage{
+  padding:12px;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.11);
+  color:#eaf3fc;
+  font-size:13px;
+  font-weight:800;
+}
+
+/* SECTIONS */
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:10px;
+  margin:28px 0 13px;
+}
+
+.section-title{
+  font-size:23px;
+  letter-spacing:-.3px;
+}
+
+.section-subtitle{
+  color:var(--gray);
+  font-size:13px;
+}
+
+/* CATEGORIES */
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.category{
+  min-height:108px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.92);
+  border-radius:18px;
+  padding:15px 10px;
+  text-align:center;
+  font-weight:900;
+  color:#162033;
+  box-shadow:0 5px 17px rgba(15,23,42,.04);
+  transition:.15s;
+}
+
+.category:hover{
+  border-color:var(--orange);
+  box-shadow:0 8px 22px rgba(245,158,11,.13);
+}
+
+.category-icon{
+  display:block;
+  font-size:31px;
+  margin-bottom:6px;
+}
+
+/* FILTERS */
+
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:5px;
+  scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter{
+  flex:none;
+  border:1px solid var(--border);
+  background:#fff;
+  color:#334155;
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:14px;
+  font-weight:850;
+}
+
+.filter.active{
+  background:var(--dark);
+  color:#fff;
+  border-color:var(--dark);
+}
+
+/* SEARCH RESULT */
+
+.search-result{
+  display:none;
+  margin:20px 0 15px;
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(15,23,42,.05);
+}
+
+.search-result.show{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+
+.search-result-title{
+  font-size:17px;
+  font-weight:950;
+}
+
+.search-result-count{
+  color:var(--gray);
+  font-size:13px;
+}
+
+/* PRODUCTS */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.product{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:11px;
+  box-shadow:0 5px 18px rgba(15,23,42,.05);
+  overflow:hidden;
+  transition:.18s;
+}
+
+.product:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(15,23,42,.10);
+}
+
+.product-image{
+  height:125px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:53px;
+  margin-bottom:11px;
+  background:
+    radial-gradient(circle at 50% 20%,#fff,transparent 48%),
+    linear-gradient(135deg,#dff4ff,#eef4ff);
+}
+
+.product-category{
+  color:var(--blue);
+  font-size:10px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+  margin-bottom:4px;
+}
+
+.product h3{
+  min-height:40px;
+  font-size:16px;
+  line-height:1.25;
+  margin-bottom:6px;
+}
+
+.product-meta{
+  color:var(--gray);
+  font-size:11px;
+  line-height:1.5;
+  margin-bottom:7px;
+}
+
+.product-meta strong{
+  color:#334155;
+}
+
+.price{
+  font-size:20px;
+  font-weight:950;
+  margin-bottom:4px;
+}
+
+.stock{
+  color:var(--green);
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.stock.preorder{
+  color:#b45309;
+}
+
+.product-buttons{
+  display:flex;
+  gap:6px;
+  margin-top:auto;
+}
+
+.button{
+  flex:1;
+  min-height:40px;
+  border:0;
+  border-radius:10px;
+  padding:8px 4px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.details{
+  background:#e8eef5;
+  color:#172033;
+}
+
+.order{
+  background:var(--orange);
+  color:#111827;
+}
+
+/* EMPTY */
+
+.empty{
+  display:none;
+  text-align:center;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:30px 18px;
+  margin-top:15px;
+  box-shadow:var(--shadow);
+}
+
+.empty.show{
+  display:block;
+}
+
+.empty-icon{
+  font-size:48px;
+  margin-bottom:8px;
+}
+
+.empty h3{
+  margin-bottom:7px;
+}
+
+.empty p{
+  max-width:500px;
+  margin:auto;
+  color:var(--gray);
+  font-size:14px;
+}
+
+.empty-button{
+  margin-top:17px;
+  border:0;
+  border-radius:13px;
+  padding:13px 17px;
+  background:var(--telegram);
+  color:#fff;
+  font-weight:900;
+}
+
+/* INFO STRIP */
+
+.info-strip{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-top:28px;
+}
+
+.info-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:15px;
+}
+
+.info-icon{
+  width:44px;
+  height:44px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:13px;
+  background:#eff6ff;
+  font-size:23px;
+}
+
+.info-card strong{
+  display:block;
+  font-size:14px;
+}
+
+.info-card span{
+  display:block;
+  color:var(--gray);
+  font-size:12px;
+  margin-top:2px;
+}
+
+/* FOOTER */
+
+footer{
+  color:#bdcce0;
+  padding:34px 18px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 80% 0%,rgba(37,99,235,.25),transparent 30%),
+    var(--dark);
+}
+
+.footer-logo{
+  color:#fff;
+  font-size:23px;
+  font-weight:950;
+  margin-bottom:7px;
+}
+
+.footer-logo span{
+  color:var(--orange);
+}
+
+.footer-links{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:15px 0;
+}
+
+.footer-link{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
+  color:#dbe8f5;
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.footer-note{
+  color:#8194ad;
+  font-size:12px;
+}
+
+/* MODAL */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  padding:12px;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(4,12,24,.74);
+  backdrop-filter:blur(5px);
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-content{
+  width:100%;
+  max-width:700px;
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:25px 25px 12px 12px;
+  padding:20px;
+  box-shadow:0 25px 70px rgba(0,0,0,.3);
+  animation:modalIn .18s ease;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.modal-header strong{
+  font-size:16px;
+}
+
+.close{
+  width:40px;
+  height:40px;
+  flex:none;
+  border:0;
+  border-radius:50%;
+  background:#e8eef5;
+  color:#172033;
+  font-size:23px;
+  line-height:1;
+}
+
+.detail-image{
+  height:175px;
+  border-radius:19px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:76px;
+  margin-bottom:17px;
+  background:
+    radial-gradient(circle at 50% 20%,#fff,transparent 48%),
+    linear-gradient(135deg,#dff4ff,#eef4ff);
+}
+
+.detail-title{
+  font-size:26px;
+  line-height:1.15;
+  margin-bottom:8px;
+}
+
+.detail-description{
+  color:#475569;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.detail-price{
+  font-size:29px;
+  font-weight:950;
+  margin:10px 0;
+}
+
+.info-box{
+  background:#f7f9fc;
+  border:1px solid #e7edf4;
+  border-radius:16px;
+  padding:13px;
+  margin:12px 0;
+}
+
+.info-box-title{
+  font-weight:950;
+  margin-bottom:5px;
+}
+
+.info-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  padding:9px 0;
+  border-bottom:1px solid #e3e9f0;
+  font-size:13px;
+}
+
+.info-row:last-child{
+  border-bottom:0;
+}
+
+.info-row span:first-child{
+  color:var(--gray);
+}
+
+.info-row strong{
+  text-align:right;
+  max-width:62%;
+}
+
+.compatibility{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:9px;
+}
+
+.compatibility span{
+  padding:6px 9px;
+  border-radius:999px;
+  background:#eaf2ff;
+  color:#2457b8;
+  font-size:11px;
+  font-weight:850;
+}
+
+.analog-list{
+  display:grid;
+  gap:7px;
+  margin-top:8px;
+}
+
+.analog{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px;
+  border-radius:11px;
+  background:#fff;
+  border:1px solid #e1e8f0;
+  font-size:12px;
+}
+
+.telegram-order{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:15px;
+  background:linear-gradient(135deg,#229ed9,#168dcc);
+  color:#fff;
+  font-size:15px;
+  font-weight:950;
+  margin-top:9px;
+}
+
+/* FORM */
+
+.order-form{
+  margin-top:14px;
+}
+
+.order-form label{
+  display:block;
+  color:#26354a;
+  font-size:12px;
+  font-weight:900;
+  margin:11px 0 5px;
+}
+
+.order-form input,
+.order-form textarea,
+.order-form select{
+  width:100%;
+  border:1px solid #d5e0eb;
+  border-radius:11px;
+  padding:12px;
+  background:#fff;
+  color:#111827;
+  outline:none;
+  font-size:14px;
+}
+
+.order-form input:focus,
+.order-form textarea:focus,
+.order-form select:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(37,99,235,.10);
+}
+
+.order-form textarea{
+  min-height:88px;
+  resize:vertical;
+}
+
+.order-submit{
+  width:100%;
+  margin-top:14px;
+  border:0;
+  border-radius:13px;
+  padding:14px;
+  background:var(--orange);
+  color:#111827;
+  font-weight:950;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:14px;
+  right:14px;
+  bottom:18px;
+  z-index:200;
+  display:none;
+  padding:14px 16px;
+  border-radius:14px;
+  background:#101827;
+  color:#fff;
+  box-shadow:0 12px 35px rgba(0,0,0,.25);
+  font-size:13px;
+  font-weight:750;
+  text-align:center;
+}
+
+.toast.show{
+  display:block;
+  animation:toastIn .2s ease;
+}
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* DESKTOP */
+
+@media(min-width:700px){
+  .hero{
+    padding:38px;
+  }
+
+  .hero h1{
+    font-size:45px;
+  }
+
+  .advantages{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .categories{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .info-strip{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .modal{
+    align-items:center;
+  }
+
+  .modal-content{
+    border-radius:25px;
+  }
+
+  .toast{
+    left:auto;
+    right:20px;
+    max-width:380px;
+  }
+}
+
+@media(max-width:430px){
+  .search-area{
+    gap:6px;
+  }
+
+  .search-button{
+    padding:0 13px;
+    font-size:13px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+  .telegram-top{
+    padding:9px 10px;
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="topbar">
+      <div class="logo">
+        AutoParts <span>Hub</span>
+        <small>SMART AUTO PARTS</small>
+      </div>
+
+      <button
+        id="telegramTop"
+        class="telegram-top"
+        type="button">
+        💬 Telegram
+      </button>
+    </div>
+
+    <div class="search-area">
+
+      <div class="search-wrapper">
+        <input
+          id="searchInput"
+          class="search"
+          type="search"
+          placeholder="Запчасть, артикул, OE/OEM, автомобиль..."
+          autocomplete="off">
+
+        <div class="search-icon">🔍</div>
+      </div>
+
+      <button
+        id="searchButton"
+        class="search-button"
+        type="button">
+        Найти
+      </button>
+
+    </div>
+
+  </div>
+</header>
+
+
+<main>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      ⚡ Быстрый поиск автозапчастей
+    </div>
+
+    <h1>
+      Найдите нужную
+      <span>автозапчасть</span>
+    </h1>
+
+    <p>
+      Ищите по названию, артикулу, OE/OEM номеру,
+      производителю или автомобилю. Получайте
+      информацию о совместимости и аналогах.
+    </p>
+
+    <div class="hero-actions">
+
+      <button
+        id="heroSearchButton"
+        class="hero-button primary"
+        type="button">
+        🔎 Найти запчасть
+      </button>
+
+      <button
+        id="heroTelegramButton"
+        class="hero-button secondary"
+        type="button">
+        💬 Помощь в Telegram
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="advantages">
+
+    <div class="advantage">
+      🔎 Умный поиск
+    </div>
+
+    <div class="advantage">
+      🚗 Совместимость
+    </div>
+
+    <div class="advantage">
+      🧩 Аналоги
+    </div>
+
+    <div class="advantage">
+      💬 Заказ онлайн
+    </div>
+
+  </div>
+
+</section>
+
+
+<div class="section-head">
+  <h2 class="section-title">Категории</h2>
+  <span class="section-subtitle">Выберите раздел</span>
+</div>
+
+
+<div class="categories">
+
+  <button
+    class="category"
+    type="button"
+    data-category="Двигатель">
+
+    <span class="category-icon">🚗</span>
+    Двигатель
+
+  </button>
+
+
+  <button
+    class="category"
+    type="button"
+    data-category="Тормоза">
+
+    <span class="category-icon">🛞</span>
+    Тормоза
+
+  </button>
+
+
+  <button
+    class="category"
+    type="button"
+    data-category="Подвеска">
+
+    <span class="category-icon">🔧</span>
+    Подвеска
+
+  </button>
+
+
+  <button
+    class="category"
+    type="button"
+    data-category="Фильтры">
+
+    <span class="category-icon">⚙️</span>
+    Фильтры
+
+  </button>
+
+</div>
+
+
+<div class="section-head">
+  <h2 class="section-title">Быстрый выбор</h2>
+</div>
+
+
+<div class="filters">
+
+  <button
+    class="filter active"
+    type="button"
+    data-filter="Все">
+    Все
+  </button>
+
+  <button
+    class="filter"
+    type="button"
+    data-filter="Двигатель">
+    🚗 Двигатель
+  </button>
+
+  <button
+    class="filter"
+    type="button"
+    data-filter="Тормоза">
+    🛞 Тормоза
+  </button>
+
+  <button
+    class="filter"
+    type="button"
+    data-filter="Подвеска">
+    🔧 Подвеска
+  </button>
+
+  <button
+    class="filter"
+    type="button"
+    data-filter="Фильтры">
+    ⚙️ Фильтры
+  </button>
+
+</div>
+
+
+<div
+  id="searchResult"
+  class="search-result">
+
+  <div>
+    <div
+      id="searchResultTitle"
+      class="search-result-title">
+      Результаты
+    </div>
+
+    <div
+      id="searchResultCount"
+      class="search-result-count">
+    </div>
+  </div>
+
+</div>
+
+
+<div class="section-head">
+  <h2 class="section-title">Каталог</h2>
+  <span class="section-subtitle">Популярные детали</span>
+</div>
+
+
+<section
+  id="products"
+  class="products">
+</section>
+
+
+<div
+  id="empty"
+  class="empty">
+
+  <div class="empty-icon">🔎</div>
+
+  <h3>Запчасть не найдена</h3>
+
+  <p>
+    Не нашли нужную деталь?
+    Оставьте запрос — мы можем помочь
+    подобрать оригинал или аналог.
+  </p>
+
+  <button
+    id="requestButton"
+    class="empty-button"
+    type="button">
+    💬 Запросить запчасть
+  </button>
+
+</div>
+
+
+<div class="info-strip">
+
+  <div class="info-card">
+    <div class="info-icon">🔍</div>
+    <div>
+      <strong>Поиск по номеру</strong>
+      <span>Артикул, OE/OEM и название</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-icon">🚘</div>
+    <div>
+      <strong>Подбор автомобиля</strong>
+      <span>Марка, модель, год и двигатель</span>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-icon">💬</div>
+    <div>
+      <strong>Заказ через Telegram</strong>
+      <span>Передача заявки менеджеру</span>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+
+<footer>
+
+  <div class="footer-logo">
+    AutoParts <span>Hub</span>
+  </div>
+
+  <div>
+    Поиск автозапчастей и удобный заказ
+  </div>
+
+  <div class="footer-links">
+
+    <button
+      id="footerCatalog"
+      class="footer-link"
+      type="button">
+      📦 Каталог
+    </button>
+
+    <button
+      id="footerTelegram"
+      class="footer-link"
+      type="button">
+      💬 Telegram
+    </button>
+
+    <button
+      id="footerRequest"
+      class="footer-link"
+      type="button">
+      🔎 Найти деталь
+    </button>
+
+  </div>
+
+  <div class="footer-note">
+    © 2026 AutoParts Hub
+  </div>
+
+</footer>
+
+
+<div
+  id="modal"
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true">
+
+  <div
+    class="modal-content"
+    onclick="event.stopPropagation()">
+
+    <div class="modal-header">
+
+      <strong id="modalHeaderTitle">
+        Информация
+      </strong>
+
+      <button
+        id="closeModal"
+        class="close"
+        type="button"
+        aria-label="Закрыть">
+        ×
+      </button>
+
+    </div>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
+<div
+  id="toast"
+  class="toast">
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  "use strict";
+
+  /* =====================================================
+     НАСТРОЙКИ
+     ===================================================== */
+
+  /*
+    ВАЖНО:
+    Здесь можно позже указать username Telegram-бота.
+
+    Например:
+    const TELEGRAM_BOT = "autoparts_hub_bot";
+
+    Пока значение пустое — сайт всё равно работает.
+    Заявка будет сформирована и показана пользователю.
+  */
+
+  const TELEGRAM_BOT = "";
+
+
+  /* =====================================================
+     КАТАЛОГ
+     ===================================================== */
+
+  const products = [
+
+    {
+      id:1,
+      name:"Масляный фильтр",
+      category:"Фильтры",
+      article:"OF-001",
+      oe:"90915-YZZD1",
+      brand:"AutoParts Hub",
+      price:1290,
+      stock:"В наличии",
+      icon:"🔧",
+
+      description:
+        "Фильтр предназначен для очистки моторного масла от механических примесей и защиты двигателя.",
+
+      compatibility:[
+        "Toyota",
+        "Lexus"
+      ],
+
+      cars:[
+        "Toyota Camry",
+        "Toyota Corolla",
+        "Lexus ES"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"90915-YZZD1"
+        },
+        {
+          brand:"Analog",
+          number:"OF-001-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Масляный фильтр",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"OF-001",
+        "OE/OEM":"90915-YZZD1",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:2,
+      name:"Воздушный фильтр",
+      category:"Фильтры",
+      article:"AF-002",
+      oe:"17801-0L040",
+      brand:"AutoParts Hub",
+      price:890,
+      stock:"В наличии",
+      icon:"🔩",
+
+      description:
+        "Воздушный фильтр очищает поступающий в двигатель воздух и помогает поддерживать нормальную работу системы впуска.",
+
+      compatibility:[
+        "Toyota",
+        "Lexus"
+      ],
+
+      cars:[
+        "Toyota Hilux",
+        "Toyota Land Cruiser",
+        "Lexus GX"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"17801-0L040"
+        },
+        {
+          brand:"Analog",
+          number:"AF-002-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Воздушный фильтр",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"AF-002",
+        "OE/OEM":"17801-0L040",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:3,
+      name:"Тормозные колодки",
+      category:"Тормоза",
+      article:"BP-003",
+      oe:"04465-33471",
+      brand:"AutoParts Hub",
+      price:3490,
+      stock:"В наличии",
+      icon:"🛞",
+
+      description:
+        "Комплект передних тормозных колодок для замены изношенных элементов тормозной системы.",
+
+      compatibility:[
+        "Toyota",
+        "Lexus"
+      ],
+
+      cars:[
+        "Toyota Camry",
+        "Toyota Corolla",
+        "Lexus ES"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"04465-33471"
+        },
+        {
+          brand:"Analog",
+          number:"BP-003-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Передние тормозные колодки",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"BP-003",
+        "OE/OEM":"04465-33471",
+        "Ось":"Передняя",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:4,
+      name:"Комплект сцепления",
+      category:"Двигатель",
+      article:"CL-004",
+      oe:"31210-0K100",
+      brand:"AutoParts Hub",
+      price:12900,
+      stock:"Под заказ",
+      icon:"⚙️",
+
+      description:
+        "Комплект сцепления для замены изношенных компонентов механической трансмиссии.",
+
+      compatibility:[
+        "Toyota"
+      ],
+
+      cars:[
+        "Toyota Hilux",
+        "Toyota Fortuner"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"31210-0K100"
+        },
+        {
+          brand:"Analog",
+          number:"CL-004-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Комплект сцепления",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"CL-004",
+        "OE/OEM":"31210-0K100",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:5,
+      name:"Амортизатор передний",
+      category:"Подвеска",
+      article:"SH-005",
+      oe:"48510-8Z123",
+      brand:"AutoParts Hub",
+      price:6790,
+      stock:"В наличии",
+      icon:"🔩",
+
+      description:
+        "Передний амортизатор предназначен для гашения колебаний подвески и повышения устойчивости автомобиля.",
+
+      compatibility:[
+        "Toyota",
+        "Nissan"
+      ],
+
+      cars:[
+        "Toyota Corolla",
+        "Nissan Qashqai"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"48510-8Z123"
+        },
+        {
+          brand:"Analog",
+          number:"SH-005-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Передний амортизатор",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"SH-005",
+        "OE/OEM":"48510-8Z123",
+        "Сторона":"Правая/левая",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:6,
+      name:"Стойка стабилизатора",
+      category:"Подвеска",
+      article:"ST-006",
+      oe:"48820-06040",
+      brand:"AutoParts Hub",
+      price:1590,
+      stock:"В наличии",
+      icon:"🔧",
+
+      description:
+        "Стойка стабилизатора обеспечивает связь стабилизатора поперечной устойчивости с элементами подвески.",
+
+      compatibility:[
+        "Toyota"
+      ],
+
+      cars:[
+        "Toyota Camry",
+        "Toyota Corolla"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"48820-06040"
+        },
+        {
+          brand:"Analog",
+          number:"ST-006-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Стойка стабилизатора",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"ST-006",
+        "OE/OEM":"48820-06040",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:7,
+      name:"Тормозной диск",
+      category:"Тормоза",
+      article:"BD-007",
+      oe:"43512-06130",
+      brand:"AutoParts Hub",
+      price:4290,
+      stock:"В наличии",
+      icon:"⭕",
+
+      description:
+        "Тормозной диск является рабочей поверхностью тормозного механизма и взаимодействует с тормозными колодками.",
+
+      compatibility:[
+        "Toyota"
+      ],
+
+      cars:[
+        "Toyota Camry",
+        "Toyota RAV4"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"43512-06130"
+        },
+        {
+          brand:"Analog",
+          number:"BD-007-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Тормозной диск",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"BD-007",
+        "OE/OEM":"43512-06130",
+        "Состояние":"Новый"
+      }
+    },
+
+
+    {
+      id:8,
+      name:"Свеча зажигания",
+      category:"Двигатель",
+      article:"SP-008",
+      oe:"90919-01253",
+      brand:"AutoParts Hub",
+      price:750,
+      stock:"В наличии",
+      icon:"⚡",
+
+      description:
+        "Свеча зажигания предназначена для воспламенения топливно-воздушной смеси в бензиновом двигателе.",
+
+      compatibility:[
+        "Toyota",
+        "Lexus"
+      ],
+
+      cars:[
+        "Toyota Camry",
+        "Toyota Corolla",
+        "Lexus ES"
+      ],
+
+      analogs:[
+        {
+          brand:"OEM",
+          number:"90919-01253"
+        },
+        {
+          brand:"Analog",
+          number:"SP-008-A"
+        }
+      ],
+
+      specifications:{
+        "Тип":"Свеча зажигания",
+        "Производитель":"AutoParts Hub",
+        "Артикул":"SP-008",
+        "OE/OEM":"90919-01253",
+        "Состояние":"Новая"
+      }
+    }
+
+  ];
+
+
+  /* =====================================================
+     DOM
+     ===================================================== */
+
+  const searchInput =
+    document.getElementById("searchInput");
+
+  const searchButton =
+    document.getElementById("searchButton");
+
+  const heroSearchButton =
+    document.getElementById("heroSearchButton");
+
+  const productsBox =
+    document.getElementById("products");
+
+  const empty =
+    document.getElementById("empty");
+
+  const searchResult =
+    document.getElementById("searchResult");
+
+  const searchResultTitle =
+    document.getElementById("searchResultTitle");
+
+  const searchResultCount =
+    document.getElementById("searchResultCount");
+
+  const modal =
+    document.getElementById("modal");
+
+  const modalBody =
+    document.getElementById("modalBody");
+
+  const modalHeaderTitle =
+    document.getElementById("modalHeaderTitle");
+
+  const closeModalButton =
+    document.getElementById("closeModal");
+
+  const requestButton =
+    document.getElementById("requestButton");
+
+  const telegramTop =
+    document.getElementById("telegramTop");
+
+  const heroTelegramButton =
+    document.getElementById("heroTelegramButton");
+
+  const footerTelegram =
+    document.getElementById("footerTelegram");
+
+  const footerCatalog =
+    document.getElementById("footerCatalog");
+
+  const footerRequest =
+    document.getElementById("footerRequest");
+
+  const toast =
+    document.getElementById("toast");
+
+
+  /* =====================================================
+     TOAST
+     ===================================================== */
+
+  let toastTimer = null;
+
+  function showToast(message){
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(function(){
+
+      toast.classList.remove("show");
+
+    },3200);
+
+  }
+
+
+  /* =====================================================
+     TELEGRAM
+     ===================================================== */
+
+  function openTelegram(message){
+
+    if(TELEGRAM_BOT){
+
+      let url =
+        "https://t.me/" +
+        TELEGRAM_BOT;
+
+      if(message){
+
+        url +=
+          "?text=" +
+          encodeURIComponent(message);
+
+      }
+
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+      return true;
+
+    }
+
+    if(message){
+
+      /*
+        Пока настоящий бот не указан,
+        показываем готовый текст заявки.
+      */
+
+      modalHeaderTitle.textContent =
+        "Заявка готова";
+
+      modalBody.innerHTML = `
+
+        <div class="info-box">
+
+          <div class="info-box-title">
+            Готовый текст заявки
+          </div>
+
+          <textarea
+            id="generatedMessage"
+            readonly
+            style="
+              width:100%;
+              min-height:190px;
+              margin-top:10px;
+              border:1px solid #d5e0eb;
+              border-radius:11px;
+              padding:12px;
+              font-size:13px;
+            ">${escapeHTML(message)}</textarea>
+
+        </div>
+
+        <button
+          id="copyMessage"
+          class="telegram-order"
+          type="button">
+          📋 Скопировать заявку
+        </button>
+
+        <button
+          id="openTelegramManual"
+          class="order-submit"
+          type="button">
+          💬 Открыть Telegram
+        </button>
+
+      `;
+
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden","false");
+
+      document
+        .getElementById("copyMessage")
+        .addEventListener(
+          "click",
+          function(){
+
+            copyText(message);
+
+          }
+        );
+
+      document
+        .getElementById("openTelegramManual")
+        .addEventListener(
+          "click",
+          function(){
+
+            window.open(
+              "https://t.me/",
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          }
+        );
+
+      return false;
+
+    }
+
+    window.open(
+      "https://t.me/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+    return false;
+
+  }
+
+
+  /* =====================================================
+     ESCAPE HTML
+     ===================================================== */
+
+  function escapeHTML(value){
+
+    return String(value)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+
+  }
+
+
+  /* =====================================================
+     COPY
+     ===================================================== */
+
+  async function copyText(text){
+
+    try{
+
+      if(
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+      ){
+
+        await navigator.clipboard.writeText(text);
+
+      }else{
+
+        const textarea =
+          document.createElement("textarea");
+
+        textarea.value = text;
+
+        textarea.style.position="fixed";
+        textarea.style.opacity="0";
+
+        document.body.appendChild(textarea);
+
+        textarea.focus();
+        textarea.select();
+
+        document.execCommand("copy");
+
+        textarea.remove();
+
+      }
+
+      showToast("Заявка скопирована");
+
+    }catch(error){
+
+      showToast(
+        "Не удалось скопировать. Выделите текст вручную."
+      );
+
+    }
+
+  }
+
+
+  /* =====================================================
+     РЕНДЕР КАТАЛОГА
+     ===================================================== */
+
+  function renderProducts(list){
+
+    productsBox.innerHTML="";
+
+    if(!list.length){
+
+      empty.classList.add("show");
+
+      return;
+
+    }
+
+    empty.classList.remove("show");
+
+
+    list.forEach(function(product){
+
+      const card =
+        document.createElement("article");
+
+      card.className="product";
+
+      const stockClass =
+        product.stock === "В наличии"
+          ? ""
+          : "preorder";
+
+
+      card.innerHTML = `
+
+        <div class="product-image">
+          ${product.icon}
+        </div>
+
+        <div class="product-category">
+          ${escapeHTML(product.category)}
+        </div>
+
+        <h3>
+          ${escapeHTML(product.name)}
+        </h3>
+
+        <div class="product-meta">
+          Артикул:
+          <strong>${escapeHTML(product.article)}</strong>
+          <br>
+          OE/OEM:
+          <strong>${escapeHTML(product.oe)}</strong>
+        </div>
+
+        <div class="price">
+          ${product.price.toLocaleString("ru-RU")} ₽
+        </div>
+
+        <div class="stock ${stockClass}">
+          ● ${escapeHTML(product.stock)}
+        </div>
+
+        <div class="product-buttons">
+
+          <button
+            class="button details"
+            type="button"
+            data-details="${product.id}">
+            Подробнее
+          </button>
+
+          <button
+            class="button order"
+            type="button"
+            data-order="${product.id}">
+            Заказать
+          </button>
+
+        </div>
+
+      `;
+
+      productsBox.appendChild(card);
+
+    });
+
+  }
+
+
+  /* =====================================================
+     ПОИСК
+     ===================================================== */
+
+  function searchProducts(){
+
+    const query =
+      searchInput.value
+        .toLowerCase()
+        .trim();
+
+
+    if(query === ""){
+
+      searchResult.classList.remove("show");
+
+      setActiveFilter("Все");
+
+      renderProducts(products);
+
+      return;
+
+    }
+
+
+    const result =
+      products.filter(function(product){
+
+        const searchableText = [
+
+          product.name,
+          product.category,
+          product.article,
+          product.oe,
+          product.brand,
+          product.description,
+
+          ...product.compatibility,
+          ...product.cars,
+
+          ...product.analogs.map(function(item){
+            return item.brand + " " + item.number;
+          }),
+
+          ...Object.values(product.specifications)
+
+        ]
+        .join(" ")
+        .toLowerCase();
+
+
+        /*
+          Дополнительный поиск:
+          разбиваем запрос на отдельные слова.
+          Это позволяет находить товар даже
+          если пользователь написал несколько слов.
+        */
+
+        const words =
+          query
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+        return words.every(function(word){
+
+          return searchableText.includes(word);
+
+        });
+
+      });
+
+
+    searchResult.classList.add("show");
+
+    searchResultTitle.textContent =
+      "Результаты поиска";
+
+    searchResultCount.textContent =
+      "По запросу «" +
+      searchInput.value +
+      "» найдено: " +
+      result.length;
+
+
+    renderProducts(result);
+
+  }
+
+
+  searchButton.addEventListener(
+    "click",
+    searchProducts
+  );
+
+
+  searchInput.addEventListener(
+    "input",
+    function(){
+
+      /*
+        Живой поиск без необходимости
+        нажимать кнопку.
+      */
+
+      searchProducts();
+
+    }
+  );
+
+
+  searchInput.addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Enter"){
+
+        event.preventDefault();
+
+        searchProducts();
+
+        searchInput.blur();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     АКТИВНЫЙ ФИЛЬТР
+     ===================================================== */
+
+  function setActiveFilter(category){
+
+    document
+      .querySelectorAll(".filter")
+      .forEach(function(button){
+
+        button.classList.toggle(
+          "active",
+          button.dataset.filter === category
+        );
+
+      });
+
+  }
+
+
+  /* =====================================================
+     ФИЛЬТР КАТЕГОРИИ
+     ===================================================== */
+
+  function selectCategory(category){
+
+    searchInput.value="";
+
+    const result =
+      products.filter(function(product){
+
+        return product.category === category;
+
+      });
+
+
+    searchResult.classList.add("show");
+
+    searchResultTitle.textContent =
+      category;
+
+    searchResultCount.textContent =
+      "Найдено товаров: " +
+      result.length;
+
+
+    setActiveFilter(category);
+
+    renderProducts(result);
+
+    document
+      .querySelector(".section-title")
+      ?.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+  }
+
+
+  /* =====================================================
+     КАТЕГОРИИ
+     ===================================================== */
+
+  document
+    .querySelectorAll(".category")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          selectCategory(
+            button.dataset.category
+          );
+
+        }
+      );
+
+    });
+
+
+  /* =====================================================
+     ФИЛЬТРЫ
+     ===================================================== */
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(function(button){
+
+      button.addEventListener(
+        "click",
+        function(){
+
+          const category =
+            button.dataset.filter;
+
+
+          if(category === "Все"){
+
+            searchInput.value="";
+
+            searchResult.classList.remove("show");
+
+            setActiveFilter("Все");
+
+            renderProducts(products);
+
+            return;
+
+          }
+
+
+          selectCategory(category);
+
+        }
+      );
+
+    });
+
+
+  /* =====================================================
+     ПОДРОБНОСТИ ТОВАРА
+     ===================================================== */
+
+  function showDetails(id){
+
+    const product =
+      products.find(function(item){
+
+        return item.id === id;
+
+      });
+
+
+    if(!product){
+
+      showToast("Запчасть не найдена");
+
+      return;
+
+    }
+
+
+    let specificationHTML="";
+
+
+    Object.entries(
+      product.specifications
+    ).forEach(function(entry){
+
+      const key=entry[0];
+      const value=entry[1];
+
+
+      specificationHTML += `
+
+        <div class="info-row">
+
+          <span>
+            ${escapeHTML(key)}
+          </span>
+
+          <strong>
+            ${escapeHTML(value)}
+          </strong>
+
+        </div>
+
+      `;
+
+    });
+
+
+    const compatibilityHTML =
+      product.compatibility
+        .map(function(item){
+
+          return `
+            <span>
+              ${escapeHTML(item)}
+            </span>
+          `;
+
+        })
+        .join("");
+
+
+    const carsHTML =
+      product.cars
+        .map(function(item){
+
+          return `
+            <span>
+              ${escapeHTML(item)}
+            </span>
+          `;
+
+        })
+        .join("");
+
+
+    const analogsHTML =
+      product.analogs
+        .map(function(item){
+
+          return `
+
+            <div class="analog">
+
+              <strong>
+                ${escapeHTML(item.brand)}
+              </strong>
+
+              <span>
+                ${escapeHTML(item.number)}
+              </span>
+
+            </div>
+
+          `;
+
+        })
+        .join("");
+
+
+    modalHeaderTitle.textContent =
+      "Информация о запчасти";
+
+
+    modalBody.innerHTML = `
+
+      <div class="detail-image">
+        ${product.icon}
+      </div>
+
+      <h2 class="detail-title">
+        ${escapeHTML(product.name)}
+      </h2>
+
+      <div class="detail-description">
+        ${escapeHTML(product.description)}
+      </div>
+
+      <div class="detail-price">
+        ${product.price.toLocaleString("ru-RU")} ₽
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="info-row">
+
+          <span>Наличие</span>
+
+          <strong
+            style="
+              color:${product.stock === "В наличии"
+                ? "#16a34a"
+                : "#b45309"};
+            ">
+            ${escapeHTML(product.stock)}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>Артикул</span>
+
+          <strong>
+            ${escapeHTML(product.article)}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>OE/OEM</span>
+
+          <strong>
+            ${escapeHTML(product.oe)}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="info-box-title">
+          Совместимость
+        </div>
+
+        <div class="compatibility">
+          ${compatibilityHTML}
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="info-box-title">
+          Примеры автомобилей
+        </div>
+
+        <div class="compatibility">
+          ${carsHTML}
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="info-box-title">
+          Характеристики
+        </div>
+
+        ${specificationHTML}
+
+      </div>
+
+
+      <div class="info-box">
+
+        <div class="info-box-title">
+          Оригинал и аналоги
+        </div>
+
+        <div class="analog-list">
+          ${analogsHTML}
+        </div>
+
+      </div>
+
+
+      <button
+        class="telegram-order"
+        type="button"
+        id="modalOrderButton">
+
+        💬 Заказать эту запчасть
+
+      </button>
+
+    `;
+
+
+    openModal();
+
+
+    document
+      .getElementById("modalOrderButton")
+      .addEventListener(
+        "click",
+        function(){
+
+          orderProduct(product.id);
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     КЛИКИ ПО КАРТОЧКАМ
+     ===================================================== */
+
+  productsBox.addEventListener(
+    "click",
+    function(event){
+
+      const detailsButton =
+        event.target.closest(
+          "[data-details]"
+        );
+
+
+      const orderButton =
+        event.target.closest(
+          "[data-order]"
+        );
+
+
+      if(detailsButton){
+
+        showDetails(
+          Number(
+            detailsButton.dataset.details
+          )
+        );
+
+        return;
+
+      }
+
+
+      if(orderButton){
+
+        orderProduct(
+          Number(
+            orderButton.dataset.order
+          )
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     MODAL
+     ===================================================== */
+
+  function openModal(){
+
+    modal.classList.add("show");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.style.overflow="hidden";
+
+  }
+
+
+  function closeModal(){
+
+    modal.classList.remove("show");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.style.overflow="";
+
+  }
+
+
+  closeModalButton.addEventListener(
+    "click",
+    closeModal
+  );
+
+
+  modal.addEventListener(
+    "click",
+    function(event){
+
+      if(event.target === modal){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    function(event){
+
+      if(event.key === "Escape"){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     ЗАКАЗ ТОВАРА
+     ===================================================== */
+
+  function orderProduct(id){
+
+    const product =
+      products.find(function(item){
+
+        return item.id === id;
+
+      });
+
+
+    if(!product){
+
+      showToast("Запчасть не найдена");
+
+      return;
+
+    }
+
+
+    modalHeaderTitle.textContent =
+      "Заказ запчасти";
+
+
+    modalBody.innerHTML = `
+
+      <div class="info-box">
+
+        <div class="info-box-title">
+          ${escapeHTML(product.name)}
+        </div>
+
+        <div class="info-row">
+
+          <span>Артикул</span>
+
+          <strong>
+            ${escapeHTML(product.article)}
+          </strong>
+
+        </div>
+
+        <div class="info-row">
+
+          <span>OE/OEM</span>
+
+          <strong>
+            ${escapeHTML(product.oe)}
+          </strong>
+
+        </div>
+
+        <div class="info-row">
+
+          <span>Цена</span>
+
+          <strong>
+            ${product.price.toLocaleString("ru-RU")} ₽
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="order-form">
+
+        <label for="customerName">
+          Ваше имя *
+        </label>
+
+        <input
+          id="customerName"
+          type="text"
+          autocomplete="name"
+          placeholder="Введите имя">
+
+
+        <label for="customerContact">
+          Телефон или Telegram *
+        </label>
+
+        <input
+          id="customerContact"
+          type="text"
+          autocomplete="tel"
+          placeholder="+7... или @username">
+
+
+        <label for="customerCar">
+          Автомобиль
+        </label>
+
+        <input
+          id="customerCar"
+          type="text"
+          placeholder="Марка, модель, год, двигатель">
+
+
+        <label for="customerComment">
+          Дополнительная информация
+        </label>
+
+        <textarea
+          id="customerComment"
+          placeholder="VIN, сторона детали, пожелания и т.д."></textarea>
+
+
+        <button
+          id="submitOrder"
+          class="order-submit"
+          type="button">
+
+          📩 Сформировать заявку
+
+        </button>
+
+      </div>
+
+    `;
+
+
+    openModal();
+
+
+    document
+      .getElementById("submitOrder")
+      .addEventListener(
+        "click",
+        function(){
+
+          sendOrder(product);
+
+        }
+      );
+
+  }
+
+
+  /* =====================================================
+     ОТПРАВКА ЗАКАЗА
+     ===================================================== */
+
+  function sendOrder(product){
+
+    const name =
+      document
+        .getElementById("customerName")
+        .value
+        .trim();
+
+
+    const contact =
+      document
+        .getElementById("customerContact")
+        .value
+        .trim();
+
+
+    const car =
+      document
+        .getElementById("customerCar")
+        .value
+        .trim();
+
+
+    const comment =
+      document
+        .getElementById("customerComment")
+        .value
+        .trim();
+
+
+    if(!name){
+
+      showToast(
+        "Укажите ваше имя"
+      );
+
+      document
+        .getElementById("customerName")
+        .focus();
+
+      return;
+
+    }
+
+
+    if(!contact){
+
+      showToast(
+        "Укажите телефон или Telegram"
+      );
+
+      document
+        .getElementById("customerContact")
+        .focus();
+
+      return;
+
+    }
+
+
+    const message =
+      "ЗАЯВКА AUTOPARTS HUB\n\n" +
+
+      "Запчасть: " +
+      product.name +
+      "\n" +
+
+      "Артикул: " +
+      product.article +
+      "\n" +
+
+      "OE/OEM: " +
+      product.oe +
+      "\n" +
+
+      "Цена: " +
+      product.price.toLocaleString("ru-RU") +
+      " ₽\n\n" +
+
+      "Имя: " +
+      name +
+      "\n" +
+
+      "Контакт: " +
+      contact +
+      "\n" +
+
+      "Автомобиль: " +
+      (car || "не указан") +
+      "\n" +
+
+      "Комментарий: " +
+      (comment || "нет");
+
+
+    openTelegram(message);
+
+  }
+
+
+  /* =====================================================
+     ЗАПРОС НЕНАЙДЕННОЙ ДЕТАЛИ
+     ===================================================== */
+
+  function requestPart(){
+
+    const query =
+      searchInput.value.trim();
+
+
+    modalHeaderTitle.textContent =
+      "Поиск нужной детали";
+
+
+    modalBody.innerHTML = `
+
+      <div class="detail-description">
+
+        Даже если детали нет в каталоге,
+        мы можем подготовить запрос
+        на оригинал или аналог.
+
+      </div>
+
+
+      <div class="order-form">
+
+        <label for="requestPartName">
+          Какая запчасть нужна? *
+        </label>
+
+        <input
+          id="requestPartName"
+          type="text"
+          value="${escapeHTML(query)}"
+          placeholder="Например: передние колодки">
+
+
+        <label for="requestCar">
+          Автомобиль
+        </label>
+
+        <input
+          id="requestCar"
+          type="text"
+          placeholder="Марка, модель, год, двигатель">
+
+
+        <label for="requestVin">
+          VIN
+        </label>
+
+        <input
+          id="requestVin"
+          type="text"
+          placeholder="Если есть VIN — укажите его">
+
+
+        <label for="requestContact">
+          Ваш телефон или Telegram *
+        </label>
+
+        <input
+          id="requestContact"
+          type="text"
+          placeholder="+7... или @username">
+
+
+        <button
+          id="sendRequest"
+          class="order-submit"
+          type="button">
+
+          📩 Сформировать запрос
+
+        </button>
+
+      </div>
+
+    `;
+
+
+    openModal();
+
+
+    document
+      .getElementById("sendRequest")
+      .addEventListener(
+        "click",
+        sendPartRequest
+      );
+
+  }
+
+
+  /* =====================================================
+     ОТПРАВКА ЗАПРОСА ДЕТАЛИ
+     ===================================================== */
+
+  function sendPartRequest(){
+
+    const part =
+      document
+        .getElementById("requestPartName")
+        .value
+        .trim();
+
+
+    const car =
+      document
+        .getElementById("requestCar")
+        .value
+        .trim();
+
+
+    const vin =
+      document
+        .getElementById("requestVin")
+        .value
+        .trim();
+
+
+    const contact =
+      document
+        .getElementById("requestContact")
+        .value
+        .trim();
+
+
+    if(!part){
+
+      showToast(
+        "Укажите название запчасти"
+      );
+
+      document
+        .getElementById("requestPartName")
+        .focus();
+
+      return;
+
+    }
+
+
+    if(!contact){
+
+      showToast(
+        "Укажите телефон или Telegram"
+      );
+
+      document
+        .getElementById("requestContact")
+        .focus();
+
+      return;
+
+    }
+
+
+    const message =
+      "ЗАПРОС AUTOPARTS HUB\n\n" +
+
+      "Нужна запчасть: " +
+      part +
+      "\n" +
+
+      "Автомобиль: " +
+      (car || "не указан") +
+      "\n" +
+
+      "VIN: " +
+      (vin || "не указан") +
+      "\n" +
+
+      "Контакт: " +
+      contact;
+
+
+    openTelegram(message);
+
+  }
+
+
+  /* =====================================================
+     TELEGRAM КНОПКИ
+     ===================================================== */
+
+  function telegramWithoutMessage(){
+
+    if(TELEGRAM_BOT){
+
+      window.open(
+        "https://t.me/" + TELEGRAM_BOT,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+      return;
+
+    }
+
+    showToast(
+      "Telegram пока работает без подключённого бота"
+    );
+
+    window.open(
+      "https://t.me/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+  }
+
+
+  telegramTop.addEventListener(
+    "click",
+    telegramWithoutMessage
+  );
+
+
+  heroTelegramButton.addEventListener(
+    "click",
+    telegramWithoutMessage
+  );
+
+
+  footerTelegram.addEventListener(
+    "click",
+    telegramWithoutMessage
+  );
+
+
+  /* =====================================================
+     HERO SEARCH
+     ===================================================== */
+
+  heroSearchButton.addEventListener(
+    "click",
+    function(){
+
+      searchInput.focus();
+
+      searchInput.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
+    }
+  );
+
+
+  /* =====================================================
+     FOOTER CATALOG
+     ===================================================== */
+
+  footerCatalog.addEventListener(
+    "click",
+    function(){
+
+      document
+        .getElementById("products")
+        .scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+
+    }
+  );
+
+
+  /* =====================================================
+     FOOTER REQUEST
+     ===================================================== */
+
+  footerRequest.addEventListener(
+    "click",
+    requestPart
+  );
+
+
+  /* =====================================================
+     REQUEST BUTTON
+     ===================================================== */
+
+  requestButton.addEventListener(
+    "click",
+    requestPart
+  );
+
+
+  /* =====================================================
+     НАЧАЛЬНАЯ ЗАГРУЗКА
+     ===================================================== */
+
+  renderProducts(products);
+
+});
+</script>
+
+</body>
+</html>
