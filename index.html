@@ -1,3173 +1,1590 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-
-<meta name="theme-color" content="#08111f">
-<meta name="description"
-      content="AutoParts Hub — интеллектуальный поиск автозапчастей по артикулу, OEM, VIN, автомобилю и описанию.">
-<meta name="robots" content="index,follow">
-
-<title>AutoParts Hub — умный поиск автозапчастей</title>
-
-<style>
-
-/* =========================================================
-   HAB-2026
-   AUTOPARTS HUB
-   INDEX / FRONTEND SHELL
-   ========================================================= */
-
-:root{
-    --bg:#06101d;
-    --panel:#0c1828;
-    --panel2:#102238;
-    --text:#eef6ff;
-    --muted:#91a4b9;
-    --line:rgba(255,255,255,.09);
-
-    --accent:#36d399;
-    --accent2:#4da3ff;
-
-    --warn:#ffc857;
-    --danger:#ff667d;
-
-    --radius:22px;
-
-    --shadow:
-        0 22px 70px rgba(0,0,0,.35);
-}
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-    color:var(--text);
-
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(77,163,255,.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 20%,
-            rgba(54,211,153,.12),
-            transparent 28%
-        ),
-        linear-gradient(
-            135deg,
-            #040b14,
-            #081523 48%,
-            #06101d
-        );
-
-    min-height:100vh;
-}
-
-/* Фоновая сетка */
-
-body:before{
-    content:"";
-
-    position:fixed;
-    inset:0;
-
-    pointer-events:none;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
-    background-size:42px 42px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            black,
-            transparent 80%
-        );
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-button,
-input,
-select,
-textarea{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-    border:0;
-}
-
-.container{
-    width:min(
-        1240px,
-        calc(100% - 32px)
-    );
-
-    margin:auto;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.topbar{
-    position:sticky;
-    top:0;
-
-    z-index:50;
-
-    background:
-        rgba(4,11,20,.82);
-
-    backdrop-filter:blur(18px);
-
-    border-bottom:
-        1px solid var(--line);
-}
-
-.nav{
-    height:72px;
-
-    display:flex;
-    align-items:center;
-
-    gap:18px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-
-    gap:11px;
-
-    font-weight:900;
-
-    letter-spacing:.2px;
-}
-
-.logo{
-    width:42px;
-    height:42px;
-
-    border-radius:13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--accent2),
-            var(--accent)
-        );
-
-    display:grid;
-    place-items:center;
-
-    color:#03101b;
-
-    box-shadow:
-        0 10px 30px
-        rgba(54,211,153,.2);
-}
-
-.logo svg{
-    width:25px;
-}
-
-.navlinks{
-    display:flex;
-    gap:7px;
-
-    margin-left:auto;
-}
-
-.navlinks a,
-.navbtn{
-    padding:10px 13px;
-
-    border-radius:12px;
-
-    color:#b8c7d8;
-
-    font-weight:700;
-    font-size:14px;
-}
-
-.navlinks a:hover,
-.navbtn:hover{
-    background:
-        rgba(255,255,255,.06);
-
-    color:#fff;
-}
-
-.navbtn{
-    background:
-        rgba(255,255,255,.06);
-
-    border:
-        1px solid var(--line);
-
-    color:#fff;
-}
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero{
-    padding:
-        62px
-        0
-        34px;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.hero-grid{
-    display:grid;
-
-    grid-template-columns:
-        1.15fr
-        .85fr;
-
-    gap:32px;
-
-    align-items:center;
-}
-
-.eyebrow{
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    border:
-        1px solid
-        rgba(54,211,153,.25);
-
-    background:
-        rgba(54,211,153,.08);
-
-    padding:
-        8px
-        12px;
-
-    border-radius:999px;
-
-    color:#9ff0ca;
-
-    font-size:13px;
-
-    font-weight:800;
-}
-
-.dot{
-    width:8px;
-    height:8px;
-
-    border-radius:50%;
-
-    background:
-        var(--accent);
-
-    box-shadow:
-        0 0 16px
-        var(--accent);
-}
-
-h1{
-    font-size:
-        clamp(
-            42px,
-            6vw,
-            76px
-        );
-
-    line-height:.98;
-
-    letter-spacing:-3px;
-
-    margin:
-        18px
-        0;
-}
-
-.gradient{
-    background:
-        linear-gradient(
-            90deg,
-            #fff 0%,
-            #bde0ff 45%,
-            #67e8b1 100%
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-}
-
-.hero p{
-    font-size:18px;
-
-    line-height:1.65;
-
-    color:#a9bbce;
-
-    max-width:700px;
-}
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-.searchbox{
-    margin-top:28px;
-
-    padding:10px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
-    background:
-        rgba(7,17,30,.78);
-
-    border-radius:20px;
-
-    box-shadow:
-        var(--shadow);
-
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        auto;
-
-    gap:9px;
-}
-
-.searchbox input{
-    width:100%;
-
-    border:0;
-
-    outline:0;
-
-    background:
-        transparent;
-
-    color:#fff;
-
-    padding:16px;
-
-    font-size:17px;
-
-    min-width:0;
-}
-
-.primary{
-    background:
-        linear-gradient(
-            135deg,
-            #43e0a3,
-            #38bdf8
-        );
-
-    color:#04111b;
-
-    font-weight:900;
-
-    padding:
-        0
-        23px;
-
-    border-radius:15px;
-
-    min-height:54px;
-}
-
-.secondary{
-    background:
-        rgba(255,255,255,.06);
-
-    border:
-        1px solid var(--line);
-
-    color:#fff;
-
-    padding:
-        12px
-        16px;
-
-    border-radius:13px;
-
-    font-weight:800;
-}
-
-.search-hints{
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:8px;
-
-    margin-top:11px;
-}
-
-.hint{
-    font-size:12px;
-
-    color:#91a4b9;
-
-    border:
-        1px solid var(--line);
-
-    background:
-        rgba(255,255,255,.03);
-
-    padding:
-        7px
-        10px;
-
-    border-radius:999px;
-}
-
-/* =========================================================
-   HERO IMAGE
-   ========================================================= */
-
-.hero-art{
-    position:relative;
-
-    min-height:410px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:32px;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(13,31,50,.65),
-            rgba(5,13,23,.9)
-        ),
-        url(
-            'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1200&q=80'
-        )
-        center/cover;
-
-    box-shadow:
-        var(--shadow);
-}
-
-.hero-art:after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        radial-gradient(
-            circle at 60% 45%,
-            transparent 0,
-            rgba(4,11,20,.35) 55%,
-            rgba(4,11,20,.88) 100%
-        );
-}
-
-.floating{
-    position:absolute;
-
-    z-index:2;
-
-    background:
-        rgba(5,15,27,.84);
-
-    backdrop-filter:
-        blur(15px);
-
-    border:
-        1px solid var(--line);
-
-    border-radius:18px;
-
-    padding:
-        14px
-        16px;
-
-    box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.35);
-}
-
-.floating.a{
-    top:24px;
-    right:20px;
-}
-
-.floating.b{
-    left:20px;
-    bottom:22px;
-}
-
-.floating strong{
-    display:block;
-    font-size:18px;
-}
-
-.floating span{
-    font-size:12px;
-    color:#91a4b9;
-}
-
-/* =========================================================
-   SECTIONS
-   ========================================================= */
-
-.section{
-    padding:
-        54px
-        0;
-}
-
-.section-head{
-    display:flex;
-
-    align-items:end;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    margin-bottom:22px;
-}
-
-.section h2{
-    font-size:32px;
-
-    margin:
-        0
-        0
-        8px;
-
-    letter-spacing:-1px;
-}
-
-.section-head p{
-    margin:0;
-
-    color:var(--muted);
-}
-
-/* =========================================================
-   STATS
-   ========================================================= */
-
-.stats{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:14px;
-
-    margin-top:18px;
-}
-
-.stat{
-    padding:20px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:18px;
-
-    background:
-        rgba(255,255,255,.035);
-}
-
-.stat b{
-    font-size:27px;
-}
-
-.stat span{
-    display:block;
-
-    color:var(--muted);
-
-    font-size:13px;
-
-    margin-top:5px;
-}
-
-/* =========================================================
-   VEHICLE CATEGORIES
-   ========================================================= */
-
-.chips{
-    display:grid;
-
-    grid-template-columns:
-        repeat(7,1fr);
-
-    gap:14px;
-}
-
-.chip{
-    padding:18px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.045),
-            rgba(255,255,255,.02)
-        );
-
-    color:#fff;
-
-    font-weight:800;
-
-    min-height:92px;
-
-    transition:
-        transform .2s,
-        border-color .2s;
-}
-
-.chip small{
-    display:block;
-
-    color:var(--muted);
-
-    font-weight:500;
-
-    margin-top:6px;
-}
-
-.chip:hover{
-    border-color:
-        rgba(77,163,255,.4);
-
-    transform:
-        translateY(-2px);
-}
-
-/* =========================================================
-   GENERAL GRID
-   ========================================================= */
-
-.grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:14px;
-}
-
-.feature-grid{
-    grid-template-columns:
-        repeat(3,1fr);
-}
-
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.card{
-    border:
-        1px solid var(--line);
-
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(15,32,52,.9),
-            rgba(9,20,34,.9)
-        );
-
-    overflow:hidden;
-
-    box-shadow:
-        0 12px 40px
-        rgba(0,0,0,.18);
-}
-
-.card-media{
-    height:155px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #142b42,
-            #091725
-        );
-
-    display:grid;
-    place-items:center;
-
-    overflow:hidden;
-}
-
-.card-media img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    opacity:.86;
-}
-
-.card-body{
-    padding:17px;
-}
-
-.tag{
-    display:inline-flex;
-
-    padding:
-        5px
-        8px;
-
-    border-radius:8px;
-
-    background:
-        rgba(54,211,153,.1);
-
-    color:#8df0bf;
-
-    font-size:11px;
-
-    font-weight:900;
-}
-
-.card h3{
-    margin:
-        10px
-        0
-        7px;
-
-    font-size:17px;
-}
-
-.muted{
-    color:var(--muted);
-}
-
-.price{
-    font-size:20px;
-
-    font-weight:900;
-
-    margin:
-        12px
-        0;
-}
-
-.card-actions{
-    display:flex;
-
-    gap:8px;
-}
-
-.card-actions button{
-    flex:1;
-
-    padding:10px;
-
-    border-radius:11px;
-}
-
-/* =========================================================
-   FEATURE CARDS
-   ========================================================= */
-
-.feature{
-    padding:24px;
-
-    min-height:210px;
-}
-
-.feature-icon{
-    width:45px;
-    height:45px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:14px;
-
-    background:
-        rgba(77,163,255,.11);
-
-    font-size:21px;
-}
-
-.feature h3{
-    margin:
-        17px
-        0
-        8px;
-}
-
-.feature p{
-    color:var(--muted);
-
-    line-height:1.6;
-}
-
-/* =========================================================
-   TRUST / AI
-   ========================================================= */
-
-.trust{
-    display:grid;
-
-    grid-template-columns:
-        1fr
-        1fr;
-
-    gap:18px;
-}
-
-.panel{
-    border:
-        1px solid var(--line);
-
-    border-radius:24px;
-
-    padding:24px;
-
-    background:
-        rgba(12,24,40,.72);
-}
-
-.list{
-    display:grid;
-
-    gap:10px;
-}
-
-.list div{
-    display:flex;
-
-    gap:10px;
-
-    align-items:flex-start;
-
-    padding:12px;
-
-    border-radius:13px;
-
-    background:
-        rgba(255,255,255,.035);
-}
-
-.check{
-    color:var(--accent);
-
-    font-weight:900;
-}
-
-.ai{
-    border:
-        1px solid
-        rgba(54,211,153,.22);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(54,211,153,.08),
-            rgba(77,163,255,.07)
-        );
-
-    border-radius:18px;
-
-    padding:18px;
-
-    margin-top:18px;
-}
-
-.ai-title{
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:10px;
-
-    align-items:center;
-}
-
-.status{
-    font-size:11px;
-
-    padding:
-        6px
-        9px;
-
-    border-radius:999px;
-
-    background:
-        rgba(54,211,153,.12);
-
-    color:#9af0c6;
-}
-
-/* =========================================================
-   SECURITY
-   ========================================================= */
-
-.security{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:12px;
-}
-
-.security .panel{
-    padding:18px;
-}
-
-/* =========================================================
-   ADMIN PREVIEW
-   ========================================================= */
-
-.admin-preview{
-    display:grid;
-
-    grid-template-columns:
-        220px
-        1fr;
-
-    min-height:300px;
-
-    padding:0;
-
-    overflow:hidden;
-}
-
-.sidebar{
-    padding:18px;
-
-    border-right:
-        1px solid var(--line);
-
-    background:#071321;
-}
-
-.sideitem{
-    padding:
-        10px
-        11px;
-
-    border-radius:10px;
-
-    color:#9db0c4;
-
-    margin-bottom:4px;
-}
-
-.sideitem.active{
-    background:
-        rgba(77,163,255,.1);
-
-    color:#fff;
-}
-
-.dash{
-    padding:20px;
-}
-
-.dashcards{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:10px;
-}
-
-.dashcard{
-    padding:15px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius:13px;
-
-    background:
-        rgba(255,255,255,.03);
-}
-
-.notice{
-    padding:
-        12px
-        14px;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,200,87,.08);
-
-    color:#f3d68e;
-
-    border:
-        1px solid
-        rgba(255,200,87,.14);
-
-    font-size:13px;
-
-    line-height:1.5;
-}
-
-/* =========================================================
-   DRAWER
-   ========================================================= */
-
-.drawer{
-    position:fixed;
-
-    inset:0;
-
-    z-index:100;
-
-    display:none;
-
-    background:
-        rgba(0,0,0,.62);
-
-    backdrop-filter:
-        blur(8px);
-}
-
-.drawer.open{
-    display:flex;
-
-    justify-content:flex-end;
-}
-
-.drawer-panel{
-    width:min(
-        560px,
-        100%
-    );
-
-    height:100%;
-
-    overflow:auto;
-
-    background:#081523;
-
-    border-left:
-        1px solid var(--line);
-
-    padding:24px;
-}
-
-.drawer-head{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:12px;
-}
-
-.close{
-    width:42px;
-    height:42px;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.07);
-
-    color:#fff;
-}
-
-.form{
-    display:grid;
-
-    gap:11px;
-
-    margin-top:18px;
-}
-
-.form input,
-.form textarea,
-.form select{
-    width:100%;
-
-    padding:13px;
-
-    border-radius:12px;
-
-    border:
-        1px solid var(--line);
-
-    background:#0d1d30;
-
-    color:#fff;
-
-    outline:none;
-}
-
-.form textarea{
-    min-height:100px;
-
-    resize:vertical;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer{
-    border-top:
-        1px solid var(--line);
-
-    padding:
-        35px
-        0;
-
-    color:#8498ad;
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-.toast{
-    position:fixed;
-
-    z-index:200;
-
-    right:18px;
-    bottom:18px;
-
-    max-width:360px;
-
-    padding:
-        14px
-        16px;
-
-    border-radius:14px;
-
-    background:#102238;
-
-    color:#fff;
-
-    border:
-        1px solid var(--line);
-
-    box-shadow:
-        var(--shadow);
-
-    display:none;
-}
-
-.toast.show{
-    display:block;
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-.mobile-menu{
-    display:none;
-}
-
-@media(max-width:1000px){
-
-    .hero-grid,
-    .trust{
-        grid-template-columns:1fr;
-    }
-
-    .chips{
-        grid-template-columns:
-            repeat(4,1fr);
-    }
-
-    .grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .feature-grid{
-        grid-template-columns:
-            1fr
-            1fr;
-    }
-
-    .security{
-        grid-template-columns:
-            1fr
-            1fr;
-    }
-
-    .admin-preview{
-        grid-template-columns:
-            170px
-            1fr;
-    }
-}
-
-@media(max-width:700px){
-
-    .container{
-        width:
-            min(
-                100% - 20px,
-                1240px
-            );
-    }
-
-    .nav{
-        height:62px;
-    }
-
-    .navlinks{
-        display:none;
-    }
-
-    .mobile-menu{
-        display:block;
-
-        margin-left:auto;
-    }
-
-    .hero{
-        padding-top:38px;
-    }
-
-    .hero-art{
-        min-height:300px;
-    }
-
-    .searchbox{
-        grid-template-columns:1fr;
-    }
-
-    .primary{
-        min-height:50px;
-    }
-
-    .chips,
-    .stats,
-    .grid,
-    .feature-grid,
-    .security{
-        grid-template-columns:1fr;
-    }
-
-    .section{
-        padding:
-            38px
-            0;
-    }
-
-    .section h2{
-        font-size:27px;
-    }
-
-    .admin-preview{
-        grid-template-columns:1fr;
-    }
-
-    .sidebar{
-        display:none;
-    }
-
-    .dashcards{
-        grid-template-columns:
-            1fr
-            1fr;
-    }
-
-    h1{
-        letter-spacing:-2px;
-    }
-
-    .floating.a{
-        right:12px;
-    }
-
-    .floating.b{
-        left:12px;
-    }
-
-    .hero p{
-        font-size:16px;
-    }
-}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111f">
+  <meta name="description" content="AutoParts Hub — интеллектуальный поиск автозапчастей для автомобилей, грузовиков, мотоциклов, автобусов, прицепов и спецтехники.">
+  <title>AutoParts Hub — ХАБ-2026</title>
+  <link rel="stylesheet" href="/app.css">
 </head>
 
 <body>
+  <div class="site-noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="brand-copy">
+        <strong>AutoParts Hub</strong>
+        <small>ХАБ-2026</small>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#catalog">Каталог</a>
+      <a href="#search">Поиск</a>
+      <a href="#ai">AI-помощник</a>
+      <a href="#security">Безопасность</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="header-button" id="open-account" type="button">
+        <span class="button-icon">◉</span>
+        Личный кабинет
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO / DYNAMIC SCENE -->
+    <section class="hero" id="search">
+
+      <div class="hero-background" aria-hidden="true">
+        <div class="backdrop-layer backdrop-layer-a"></div>
+        <div class="backdrop-layer backdrop-layer-b"></div>
+
+        <div class="light-beam light-beam-left"></div>
+        <div class="light-beam light-beam-right"></div>
+
+        <div class="road-glow"></div>
+        <div class="scene-rain"></div>
+        <div class="scene-snow"></div>
+        <div class="scene-scan"></div>
+
+        <div class="vehicle-light vehicle-light-left"></div>
+        <div class="vehicle-light vehicle-light-right"></div>
+      </div>
+
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+
+        <div class="hero-badge">
+          <span class="status-dot"></span>
+          ИНТЕЛЛЕКТУАЛЬНЫЙ АВТОМОБИЛЬНЫЙ ХАБ
+        </div>
+
+        <h1>
+          Найди нужную
+          <span>запчасть</span>
+          быстрее.
+        </h1>
+
+        <p class="hero-description">
+          Поиск по названию, артикулу, OE/OEM, VIN, автомобилю,
+          фотографии или описанию детали.
+        </p>
+
+        <div class="search-panel">
+
+          <div class="search-mode-row">
+
+            <button class="search-mode active" data-mode="part" type="button">
+              <span>⌕</span>
+              Артикул / название
+            </button>
+
+            <button class="search-mode" data-mode="vin" type="button">
+              <span>⌁</span>
+              VIN
+            </button>
+
+            <button class="search-mode" data-mode="photo" type="button">
+              <span>◈</span>
+              Фото
+            </button>
+
+            <button class="search-mode" data-mode="vehicle" type="button">
+              <span>▣</span>
+              Автомобиль
+            </button>
+
+          </div>
+
+          <div class="search-main">
+
+            <div class="search-input-wrap">
+              <span class="search-symbol">⌕</span>
+
+              <input
+                id="search-input"
+                type="search"
+                autocomplete="off"
+                placeholder="Введите номер детали, название или OE/OEM"
+                aria-label="Поиск запчасти"
+              >
+
+              <button
+                class="clear-search"
+                id="clear-search"
+                type="button"
+                aria-label="Очистить"
+              >
+                ×
+              </button>
+            </div>
+
+            <button class="search-submit" id="search-submit" type="button">
+              Найти
+              <span>→</span>
+            </button>
+
+          </div>
+
+          <div class="search-hints">
+            <button type="button" data-query="фильтр масляный">Фильтр масляный</button>
+            <button type="button" data-query="колодки тормозные">Колодки тормозные</button>
+            <button type="button" data-query="ремень генератора">Ремень генератора</button>
+            <button type="button" data-query="DAF XF">DAF XF</button>
+          </div>
+
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <strong>7</strong>
+            <span>сегментов техники</span>
+          </div>
+
+          <div>
+            <strong>OE</strong>
+            <span>оригиналы и аналоги</span>
+          </div>
+
+          <div>
+            <strong>AI</strong>
+            <span>умный помощник</span>
+          </div>
+
+          <div>
+            <strong>VIN</strong>
+            <span>идентификация автомобиля</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SCENE CONTROLS -->
+      <div class="scene-controls">
+
+        <button
+          id="scene-auto"
+          class="scene-control active"
+          type="button"
+          title="Автоматическая смена сцен"
+        >
+          AUTO
+        </button>
+
+        <button
+          id="scene-pause"
+          class="scene-control"
+          type="button"
+          title="Пауза"
+        >
+          II
+        </button>
+
+        <button
+          id="scene-flash"
+          class="scene-control"
+          type="button"
+          title="Вспышка фар"
+        >
+          ✦
+        </button>
+
+      </div>
+
+      <div class="scene-label">
+        <span id="scene-segment-label">УНИВЕРСАЛЬНАЯ СЦЕНА</span>
+        <strong id="scene-title">AutoParts Hub</strong>
+        <small id="scene-mode-label">ДИНАМИЧЕСКИЙ ФОН</small>
+      </div>
+
+    </section>
+
+
+    <!-- SEGMENTS -->
+    <section class="section segment-section" id="catalog">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">01 / СЕГМЕНТЫ</span>
+          <h2>Выбери свою технику</h2>
+          <p>
+            Фон, каталог и рекомендации автоматически адаптируются
+            под выбранный сегмент.
+          </p>
+        </div>
+      </div>
+
+      <div class="segment-grid">
+
+        <button class="segment-card active" data-segment="all" type="button">
+          <span class="segment-icon">✦</span>
+          <strong>Вся техника</strong>
+          <small>Универсальный поиск</small>
+        </button>
+
+        <button class="segment-card" data-segment="cars" type="button">
+          <span class="segment-icon">🚘</span>
+          <strong>Легковые</strong>
+          <small>Автомобили</small>
+        </button>
+
+        <button class="segment-card" data-segment="moto" type="button">
+          <span class="segment-icon">🏍</span>
+          <strong>Мото</strong>
+          <small>Мотоциклы</small>
+        </button>
+
+        <button class="segment-card" data-segment="truck" type="button">
+          <span class="segment-icon">🚛</span>
+          <strong>Грузовики</strong>
+          <small>Тягачи и грузовые</small>
+        </button>
+
+        <button class="segment-card" data-segment="trailer" type="button">
+          <span class="segment-icon">▰</span>
+          <strong>Прицепы</strong>
+          <small>Полуприцепы</small>
+        </button>
+
+        <button class="segment-card" data-segment="bus" type="button">
+          <span class="segment-icon">🚌</span>
+          <strong>Автобусы</strong>
+          <small>Пассажирская техника</small>
+        </button>
+
+        <button class="segment-card" data-segment="commercial" type="button">
+          <span class="segment-icon">🚐</span>
+          <strong>Коммерческие</strong>
+          <small>LCV и фургоны</small>
+        </button>
+
+        <button class="segment-card" data-segment="special" type="button">
+          <span class="segment-icon">🚜</span>
+          <strong>Спецтехника</strong>
+          <small>Строительная и промышленная</small>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEARCH RESULTS -->
+    <section class="section results-section">
+
+      <div class="results-toolbar">
+
+        <div>
+          <span class="eyebrow">02 / КАТАЛОГ</span>
+          <h2>Результаты поиска</h2>
+          <p id="results-caption">
+            Популярные запчасти и демонстрационные позиции.
+          </p>
+        </div>
+
+        <div class="results-actions">
+
+          <select id="sort-select" class="sort-select">
+            <option value="relevance">По релевантности</option>
+            <option value="price-asc">Сначала дешевле</option>
+            <option value="price-desc">Сначала дороже</option>
+            <option value="name">По названию</option>
+          </select>
+
+          <button
+            id="open-compare"
+            class="secondary-button"
+            type="button"
+          >
+            Сравнение
+            <span id="compare-count">0</span>
+          </button>
+
+        </div>
+
+      </div>
+
+      <div id="results-grid" class="results-grid">
+
+        <div class="loading-card">
+          <div class="loading-spinner"></div>
+          <span>Загружаем каталог…</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PART DETAIL -->
+    <section class="section part-section">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">03 / КАРТОЧКА</span>
+          <h2>Детальная информация о детали</h2>
+          <p>
+            В дальнейшем здесь будут реальные OE/OEM, аналоги,
+            совместимость, остатки поставщиков и сроки доставки.
+          </p>
+        </div>
+      </div>
+
+      <article class="part-detail-card">
+
+        <div class="part-visual">
+
+          <div class="part-image-frame">
+
+            <div class="part-glow"></div>
+
+            <img
+              id="part-image"
+              src="/assets/backgrounds/parts/part-hero.webp"
+              alt="Демонстрационная автомобильная запчасть"
+              loading="lazy"
+            >
+
+            <div class="part-image-badge">
+              DEMO
+            </div>
+
+          </div>
+
+          <div class="part-gallery">
+
+            <button type="button" class="gallery-thumb active">
+              <img src="/assets/backgrounds/parts/part-hero.webp" alt="">
+            </button>
+
+            <button type="button" class="gallery-thumb">
+              <img src="/assets/backgrounds/parts/part-hero.webp" alt="">
+            </button>
+
+            <button type="button" class="gallery-thumb">
+              <img src="/assets/backgrounds/parts/part-hero.webp" alt="">
+            </button>
+
+            <button type="button" class="gallery-thumb">
+              <img src="/assets/backgrounds/parts/part-hero.webp" alt="">
+            </button>
+
+          </div>
 
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
+        </div>
 
-<header class="topbar">
 
-<div class="container nav">
+        <div class="part-information">
+
+          <div class="part-topline">
+
+            <span class="stock-badge">
+              В наличии
+            </span>
+
+            <button
+              id="favorite-part"
+              class="favorite-button"
+              type="button"
+              aria-label="Добавить в избранное"
+            >
+              ♡
+            </button>
 
-<a class="brand"
-   href="#top"
-   aria-label="AutoParts Hub">
+          </div>
 
-<span class="logo">
+          <h3 id="part-title">
+            Масляный фильтр — демонстрационная позиция
+          </h3>
+
+          <p class="part-description">
+            Пример расширенной карточки AutoParts Hub.
+            Здесь будет отображаться точная информация по конкретной
+            запчасти после определения автомобиля или детали.
+          </p>
+
+          <div class="part-numbers">
+
+            <div>
+              <span>Артикул</span>
+              <strong id="part-number">DEMO-0001</strong>
+            </div>
+
+            <div>
+              <span>OE / OEM</span>
+              <strong id="part-oe">OE-DEMO-001</strong>
+            </div>
+
+            <div>
+              <span>Бренд</span>
+              <strong id="part-brand">AutoParts Hub</strong>
+            </div>
+
+          </div>
+
+
+          <div class="compatibility">
+
+            <div class="compatibility-heading">
+              <span>Совместимость</span>
+              <strong>Демонстрационные данные</strong>
+            </div>
+
+            <div class="compatibility-tags">
+
+              <span>Toyota</span>
+              <span>BMW</span>
+              <span>Mercedes-Benz</span>
+              <span>DAF</span>
+
+            </div>
+
+          </div>
+
+
+          <div class="part-price-row">
+
+            <div>
+              <small>Цена от</small>
+              <strong id="part-price">1 490 ₽</strong>
+            </div>
+
+            <button
+              id="request-part"
+              class="primary-button"
+              type="button"
+            >
+              Запросить деталь
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </div>
 
-<svg
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="2">
+      </article>
 
-<path d="M4 15l2-6h12l2 6"/>
+    </section>
 
-<path d="M5 15h14v4H5z"/>
 
-<circle cx="8" cy="19" r="1.5"/>
-<circle cx="16" cy="19" r="1.5"/>
+    <!-- DIAGRAM -->
+    <section class="section diagram-section">
 
-</svg>
+      <div class="section-heading">
 
-</span>
+        <div>
+          <span class="eyebrow">04 / ВИЗУАЛИЗАЦИЯ</span>
+          <h2>Где находится деталь?</h2>
+          <p>
+            В дальнейшем интерактивные схемы будут показывать
+            точное расположение детали в узле автомобиля.
+          </p>
+        </div>
 
-<span>
-AutoParts Hub
-</span>
+      </div>
 
-</a>
+      <div class="diagram-card">
 
-<nav class="navlinks">
+        <div class="diagram-image">
 
-<a href="#catalog">
-Каталог
-</a>
+          <div class="diagram-grid"></div>
 
-<a href="#ai">
-ИИ-помощник
-</a>
+          <div class="diagram-car">
+            <div class="diagram-car-body"></div>
+            <div class="diagram-wheel wheel-one"></div>
+            <div class="diagram-wheel wheel-two"></div>
+            <div class="diagram-window"></div>
+            <div class="diagram-light"></div>
+          </div>
 
-<a href="#security">
-Защита
-</a>
+          <button
+            class="diagram-hotspot hotspot-one"
+            type="button"
+            title="Двигатель"
+          >
+            01
+          </button>
 
-<a href="#admin">
-Админка
-</a>
+          <button
+            class="diagram-hotspot hotspot-two"
+            type="button"
+            title="Тормозная система"
+          >
+            02
+          </button>
 
-</nav>
+          <button
+            class="diagram-hotspot hotspot-three"
+            type="button"
+            title="Подвеска"
+          >
+            03
+          </button>
 
-<button
-class="navbtn"
-onclick="openDrawer('request')">
+          <div class="diagram-label">
+            ИНТЕРАКТИВНАЯ СХЕМА
+          </div>
 
-Запрос по VIN
+        </div>
 
-</button>
 
-<button
-class="mobile-menu navbtn"
-onclick="openDrawer('menu')">
+        <div class="diagram-info">
 
-☰
+          <span class="eyebrow">УЗЕЛ АВТОМОБИЛЯ</span>
 
-</button>
+          <h3>Выберите точку на схеме</h3>
 
-</div>
+          <p>
+            После подключения реального каталога здесь появятся
+            узлы, детали, OEM-коды и переходы непосредственно
+            в карточку нужной запчасти.
+          </p>
 
-</header>
+          <div class="diagram-features">
 
+            <div>
+              <span>01</span>
+              <strong>Двигатель</strong>
+            </div>
 
-<main id="top">
+            <div>
+              <span>02</span>
+              <strong>Тормоза</strong>
+            </div>
 
-<!-- =========================================================
-     HERO
-     ========================================================= -->
+            <div>
+              <span>03</span>
+              <strong>Подвеска</strong>
+            </div>
 
-<section class="hero">
+          </div>
 
-<div class="container hero-grid">
+        </div>
 
-<div>
+      </div>
 
-<span class="eyebrow">
+    </section>
 
-<i class="dot"></i>
 
-ХАБ-2026 · интеллектуальная платформа
+    <!-- RECOMMENDATIONS -->
+    <section class="section recommendations-section">
 
-</span>
+      <div class="section-heading">
 
-<h1>
+        <div>
+          <span class="eyebrow">05 / SMART</span>
+          <h2>Что ещё может понадобиться</h2>
+          <p>
+            В будущем AI будет формировать комплект сопутствующих
+            товаров на основе основной детали и автомобиля.
+          </p>
+        </div>
 
-Запчасть найдём.
+      </div>
 
-<br>
+      <div class="recommendation-grid">
 
-<span class="gradient">
-Совместимость докажем.
-</span>
+        <article class="recommendation-card">
 
-</h1>
+          <div class="recommendation-image">
+            <img
+              src="/assets/backgrounds/parts/part-hero.webp"
+              alt=""
+              loading="lazy"
+            >
+          </div>
 
-<p>
+          <div class="recommendation-content">
+            <span>Сопутствующее</span>
+            <h3>Моторное масло</h3>
+            <p>Для полного обслуживания узла.</p>
 
-Единый поиск автозапчастей по артикулу,
-OEM/OE, VIN, автомобилю, описанию
-и в будущем по фотографии.
+            <button type="button" class="recommendation-button">
+              Посмотреть →
+            </button>
+          </div>
 
-Сравниваем предложения, аналоги,
-наличие, сроки и помогаем оформить запрос.
+        </article>
 
-</p>
 
-<div class="searchbox">
+        <article class="recommendation-card">
 
-<input
-id="searchInput"
-autocomplete="off"
-placeholder="Артикул, OEM, название, VIN или описание проблемы…">
+          <div class="recommendation-image">
+            <img
+              src="/assets/backgrounds/parts/part-hero.webp"
+              alt=""
+              loading="lazy"
+            >
+          </div>
 
-<button
-class="primary"
-onclick="doSearch()">
+          <div class="recommendation-content">
+            <span>Комплект</span>
+            <h3>Фильтры</h3>
+            <p>Масляный, воздушный и салонный.</p>
 
-Найти запчасть
+            <button type="button" class="recommendation-button">
+              Собрать комплект →
+            </button>
+          </div>
 
-</button>
+        </article>
 
-</div>
 
-<div class="search-hints">
+        <article class="recommendation-card">
 
-<span class="hint">
-Например: 04465-33450
-</span>
+          <div class="recommendation-image">
+            <img
+              src="/assets/backgrounds/parts/part-hero.webp"
+              alt=""
+              loading="lazy"
+            >
+          </div>
 
-<span class="hint">
-Toyota Camry 2018 2.5
-</span>
+          <div class="recommendation-content">
+            <span>Рекомендация AI</span>
+            <h3>Проверить аналоги</h3>
+            <p>Найти совместимые варианты дешевле.</p>
 
-<span class="hint">
-масляный фильтр
-</span>
+            <button type="button" class="recommendation-button">
+              Найти аналоги →
+            </button>
+          </div>
 
-<span class="hint">
-VIN → подбор
-</span>
+        </article>
 
-</div>
+      </div>
 
-</div>
+    </section>
 
 
-<div class="hero-art">
+    <!-- VISUAL CATALOG -->
+    <section class="section visual-catalog-section">
 
-<div class="floating a">
+      <div class="section-heading">
 
-<strong>
-AI Ready
-</strong>
+        <div>
+          <span class="eyebrow">06 / VISUAL CATALOG</span>
+          <h2>Визуальный каталог техники</h2>
+          <p>
+            Фотографии и динамические сцены будут меняться
+            автоматически в зависимости от выбранного сегмента.
+          </p>
+        </div>
 
-<span>
-Фото · OCR · описание · аналоги
-</span>
+      </div>
 
-</div>
 
+      <div class="visual-catalog-grid">
 
-<div class="floating b">
+        <button class="visual-tile" data-segment="cars" type="button">
+          <div class="visual-tile-image cars-tile"></div>
+          <div class="visual-tile-content">
+            <span>01</span>
+            <strong>Легковые</strong>
+            <small>Город · трасса · студия</small>
+          </div>
+        </button>
 
-<strong>
-7 сегментов
-</strong>
 
-<span>
-Легковые · грузовые · LCV · автобусы · мото · прицепы · спецтехника
-</span>
+        <button class="visual-tile" data-segment="moto" type="button">
+          <div class="visual-tile-image moto-tile"></div>
+          <div class="visual-tile-content">
+            <span>02</span>
+            <strong>Мото</strong>
+            <small>Sport · Night · Motion</small>
+          </div>
+        </button>
 
-</div>
 
-</div>
+        <button class="visual-tile" data-segment="truck" type="button">
+          <div class="visual-tile-image truck-tile"></div>
+          <div class="visual-tile-content">
+            <span>03</span>
+            <strong>Грузовики</strong>
+            <small>Тягачи · трасса · сервис</small>
+          </div>
+        </button>
 
-</div>
 
-</section>
+        <button class="visual-tile" data-segment="trailer" type="button">
+          <div class="visual-tile-image trailer-tile"></div>
+          <div class="visual-tile-content">
+            <span>04</span>
+            <strong>Прицепы</strong>
+            <small>Полуприцепы · логистика</small>
+          </div>
+        </button>
 
 
-<!-- =========================================================
-     STATS
-     ========================================================= -->
+        <button class="visual-tile" data-segment="bus" type="button">
+          <div class="visual-tile-image bus-tile"></div>
+          <div class="visual-tile-content">
+            <span>05</span>
+            <strong>Автобусы</strong>
+            <small>Город · туризм · транспорт</small>
+          </div>
+        </button>
 
-<section class="section">
 
-<div class="container">
+        <button class="visual-tile" data-segment="commercial" type="button">
+          <div class="visual-tile-image commercial-tile"></div>
+          <div class="visual-tile-content">
+            <span>06</span>
+            <strong>Коммерческие</strong>
+            <small>Фургоны · LCV · доставка</small>
+          </div>
+        </button>
 
-<div class="stats">
 
-<div class="stat">
+        <button class="visual-tile" data-segment="special" type="button">
+          <div class="visual-tile-image special-tile"></div>
+          <div class="visual-tile-content">
+            <span>07</span>
+            <strong>Спецтехника</strong>
+            <small>Стройка · карьер · техника</small>
+          </div>
+        </button>
 
-<b>
-VIN
-</b>
 
-<span>
-точечный подбор по автомобилю
-</span>
+        <button class="visual-tile" data-segment="all" type="button">
+          <div class="visual-tile-image universal-tile"></div>
+          <div class="visual-tile-content">
+            <span>08</span>
+            <strong>Смешанный парк</strong>
+            <small>Все категории</small>
+          </div>
+        </button>
 
-</div>
+      </div>
 
+    </section>
 
-<div class="stat">
 
-<b>
-OE/OEM
-</b>
+    <!-- AI -->
+    <section class="section ai-section" id="ai">
 
-<span>
-поиск оригинального номера
-</span>
+      <div class="ai-card">
 
-</div>
+        <div class="ai-visual">
 
+          <div class="ai-orbit orbit-one"></div>
+          <div class="ai-orbit orbit-two"></div>
+          <div class="ai-core">
+            <span>AI</span>
+          </div>
 
-<div class="stat">
+        </div>
 
-<b>
-AI
-</b>
 
-<span>
-умный помощник поиска
-</span>
+        <div class="ai-content">
 
-</div>
+          <span class="eyebrow">07 / AI ASSISTANT</span>
 
+          <h2>
+            Не знаешь номер детали?
+            <span>Опиши её.</span>
+          </h2>
 
-<div class="stat">
+          <p>
+            AI-помощник сможет определить деталь по фотографии,
+            нечитаемому номеру или обычному описанию.
+          </p>
 
-<b>
-API
-</b>
+          <div class="ai-actions">
 
-<span>
-готовность к поставщикам
-</span>
+            <button
+              id="open-ai"
+              class="primary-button"
+              type="button"
+            >
+              Запустить AI-поиск
+              <span>→</span>
+            </button>
 
-</div>
+            <button
+              id="photo-search"
+              class="secondary-button"
+              type="button"
+            >
+              Загрузить фото
+            </button>
 
-</div>
+          </div>
 
-</div>
+          <div class="ai-capabilities">
 
-</section>
+            <span>Фото детали</span>
+            <span>Нечитаемый номер</span>
+            <span>Описание</span>
+            <span>Аналоги</span>
+            <span>Комплекты</span>
 
+          </div>
 
-<!-- =========================================================
-     TRANSPORT SEGMENTS
-     ========================================================= -->
+        </div>
 
-<section
-class="section"
-id="catalog">
+      </div>
 
-<div class="container">
+    </section>
 
-<div class="section-head">
 
-<div>
+    <!-- SECURITY -->
+    <section class="section security-section" id="security">
 
-<h2>
-Один поиск — весь транспорт
-</h2>
+      <div class="section-heading">
 
-<p>
-Архитектура рассчитана не только на легковые автомобили.
-</p>
+        <div>
+          <span class="eyebrow">08 / SECURITY</span>
+          <h2>Безопасность — часть архитектуры</h2>
+          <p>
+            На следующем этапе будут подключены реальные серверная
+            авторизация, роли, журнал действий, резервное копирование
+            и защита API.
+          </p>
+        </div>
 
-</div>
+      </div>
 
-<button
-class="secondary"
-onclick="openDrawer('request')">
 
-Не нашли? Оставить запрос
+      <div class="security-grid">
 
-</button>
+        <article class="security-card">
+          <span class="security-icon">⌾</span>
+          <h3>Защита данных</h3>
+          <p>
+            Персональные данные и секретные ключи не должны
+            храниться в открытом frontend-коде.
+          </p>
+        </article>
 
-</div>
 
+        <article class="security-card">
+          <span class="security-icon">◈</span>
+          <h3>Роли и доступы</h3>
+          <p>
+            Администратор, менеджер, поставщик и клиент получат
+            разные уровни доступа.
+          </p>
+        </article>
 
-<div class="chips">
 
-<button
-class="chip"
-onclick="quickSearch('легковой автомобиль')">
+        <article class="security-card">
+          <span class="security-icon">↻</span>
+          <h3>Резервные копии</h3>
+          <p>
+            База данных, каталог и критические настройки будут
+            защищены системой резервного копирования.
+          </p>
+        </article>
 
-🚗 Легковые
 
-<small>
-седаны, SUV, EV
-</small>
+        <article class="security-card">
+          <span class="security-icon">✓</span>
+          <h3>Журнал действий</h3>
+          <p>
+            Изменения каталога, цен, поставщиков и заказов
+            будут фиксироваться в audit log.
+          </p>
+        </article>
 
-</button>
+      </div>
 
+    </section>
 
-<button
-class="chip"
-onclick="quickSearch('грузовой автомобиль')">
 
-🚛 Грузовые
+    <!-- REQUEST / CONTACT -->
+    <section class="section request-section">
 
-<small>
-тягачи, грузовики
-</small>
+      <div class="request-card">
 
-</button>
+        <div>
+          <span class="eyebrow">09 / REQUEST</span>
 
+          <h2>
+            Не нашли нужную запчасть?
+          </h2>
 
-<button
-class="chip"
-onclick="quickSearch('коммерческий транспорт')">
+          <p>
+            Оставьте запрос. В будущем система сможет автоматически
+            разослать его подключённым поставщикам.
+          </p>
+        </div>
 
-🚐 LCV
+        <button
+          id="open-request"
+          class="primary-button"
+          type="button"
+        >
+          Отправить запрос
+          <span>→</span>
+        </button>
 
-<small>
-фургоны, микроавтобусы
-</small>
+      </div>
 
-</button>
+    </section>
 
+  </main>
 
-<button
-class="chip"
-onclick="quickSearch('автобус')">
 
-🚌 Автобусы
+  <!-- FOOTER -->
+  <footer class="footer">
 
-<small>
-городские, туристические
-</small>
+    <div class="footer-brand">
 
-</button>
+      <div class="brand">
+        <div class="brand-mark">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
 
+        <div class="brand-copy">
+          <strong>AutoParts Hub</strong>
+          <small>ХАБ-2026</small>
+        </div>
+      </div>
 
-<button
-class="chip"
-onclick="quickSearch('мотоцикл')">
+      <p>
+        Интеллектуальная инфраструктура поиска автозапчастей.
+      </p>
 
-🏍 Мото
+    </div>
 
-<small>
-мотоциклы, скутеры
-</small>
 
-</button>
+    <div class="footer-links">
 
+      <div>
+        <strong>Каталог</strong>
+        <a href="#catalog">Автомобили</a>
+        <a href="#catalog">Грузовики</a>
+        <a href="#catalog">Мото</a>
+        <a href="#catalog">Спецтехника</a>
+      </div>
 
-<button
-class="chip"
-onclick="quickSearch('прицеп')">
+      <div>
+        <strong>Система</strong>
+        <a href="#search">Поиск</a>
+        <a href="#ai">AI</a>
+        <a href="#security">Безопасность</a>
+      </div>
 
-🛞 Прицепы
+      <div>
+        <strong>Проект</strong>
+        <a href="#">О ХАБ-2026</a>
+        <a href="#">Поставщикам</a>
+        <a href="#">Контакты</a>
+      </div>
 
-<small>
-прицепы, полуприцепы
-</small>
+    </div>
 
-</button>
 
+    <div class="footer-bottom">
 
-<button
-class="chip"
-onclick="quickSearch('спецтехника')">
+      <span>
+        © 2026 AutoParts Hub
+      </span>
 
-🚜 Спецтехника
+      <span>
+        Prototype / Development
+      </span>
 
-<small>
-строительная, сельхоз
-</small>
+    </div>
 
-</button>
+  </footer>
 
-</div>
 
-</div>
+  <!-- PRODUCT MODAL -->
+  <div class="modal" id="product-modal" aria-hidden="true">
 
-</section>
+    <div class="modal-backdrop" data-close-modal></div>
 
+    <div class="modal-window">
 
-<!-- =========================================================
-     FEATURES
-     ========================================================= -->
+      <button
+        class="modal-close"
+        data-close-modal
+        type="button"
+        aria-label="Закрыть"
+      >
+        ×
+      </button>
 
-<section class="section">
+      <div id="product-modal-content"></div>
 
-<div class="container">
+    </div>
 
-<div class="section-head">
+  </div>
 
-<div>
 
-<h2>
-Что делает Hub умнее обычного магазина
-</h2>
+  <!-- REQUEST MODAL -->
+  <div class="modal" id="request-modal" aria-hidden="true">
 
-<p>
-Берём лучшие пользовательские сценарии рынка,
-но строим собственную систему.
-</p>
+    <div class="modal-backdrop" data-close-modal></div>
 
-</div>
+    <div class="modal-window modal-small">
 
-</div>
+      <button
+        class="modal-close"
+        data-close-modal
+        type="button"
+        aria-label="Закрыть"
+      >
+        ×
+      </button>
 
+      <div class="modal-heading">
+        <span class="eyebrow">REQUEST</span>
+        <h2>Запросить запчасть</h2>
+        <p>
+          Оставьте данные — пока это демонстрационная форма.
+        </p>
+      </div>
 
-<div class="grid feature-grid">
+      <form id="request-form" class="request-form">
 
+        <label>
+          <span>Имя</span>
+          <input
+            name="name"
+            type="text"
+            placeholder="Ваше имя"
+            required
+          >
+        </label>
 
-<article class="card feature">
+        <label>
+          <span>Контакт</span>
+          <input
+            name="contact"
+            type="text"
+            placeholder="Телефон или Telegram"
+            required
+          >
+        </label>
 
-<div class="feature-icon">
-🔎
-</div>
+        <label>
+          <span>Что требуется</span>
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="Название детали, артикул, VIN или описание"
+            required
+          ></textarea>
+        </label>
 
-<h3>
-Поиск без угадывания
-</h3>
+        <button class="primary-button" type="submit">
+          Отправить запрос
+          <span>→</span>
+        </button>
 
-<p>
+        <div id="request-status" class="form-status"></div>
 
-Артикул, OEM/OE, название,
-VIN, марка/модель/год/двигатель
-и естественное описание проблемы.
+      </form>
 
-Нормализация, опечатки и варианты
-написания закладываются в API.
+    </div>
 
-</p>
+  </div>
 
-</article>
 
+  <!-- AI MODAL -->
+  <div class="modal" id="ai-modal" aria-hidden="true">
 
-<article class="card feature">
+    <div class="modal-backdrop" data-close-modal></div>
 
-<div class="feature-icon">
-🧠
-</div>
+    <div class="modal-window modal-small">
 
-<h3>
-ИИ-помощник
-</h3>
+      <button
+        class="modal-close"
+        data-close-modal
+        type="button"
+        aria-label="Закрыть"
+      >
+        ×
+      </button>
 
-<p>
+      <div class="modal-heading">
 
-Фото детали, нечитаемый номер,
-описание неисправности,
-подбор аналогов и сопутствующих товаров.
+        <span class="eyebrow">AI ASSISTANT</span>
 
-ИИ предлагает кандидатов,
-но не подменяет подтверждённые данные каталога.
-
-</p>
-
-</article>
-
-
-<article class="card feature">
-
-<div class="feature-icon">
-🛡️
-</div>
-
-<h3>
-Проверяемость
-</h3>
-
-<p>
-
-Для каждой детали предусматриваем источник,
-применимость, OE/OEM, аналоги,
-поставщика, цену, наличие и срок.
-
-Неподтверждённые догадки
-не выдаём за факт.
-
-</p>
-
-</article>
-
-
-<article class="card feature">
-
-<div class="feature-icon">
-📦
-</div>
-
-<h3>
-Мультипоставщик
-</h3>
-
-<p>
-
-Архитектура позволяет объединять
-предложения поставщиков и сравнивать
-цену, остаток, срок и условия доставки.
-
-</p>
-
-</article>
-
-
-<article class="card feature">
-
-<div class="feature-icon">
-📈
-</div>
-
-<h3>
-Поиск становится аналитикой
-</h3>
-
-<p>
-
-Записываем запросы, нулевые результаты,
-клики, переходы в заявку
-и повторные поиски.
-
-Это база для расширения ассортимента.
-
-</p>
-
-</article>
-
-
-<article class="card feature">
-
-<div class="feature-icon">
-🤖
-</div>
-
-<h3>
-Telegram + CRM
-</h3>
-
-<p>
-
-Заявка получает ID и может пройти путь:
-
-новая →
-уточнение →
-подбор →
-предложение →
-заказ →
-отгрузка →
-завершено.
-
-Токены бота никогда не лежат в браузере.
-
-</p>
-
-</article>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     AI
-     ========================================================= -->
-
-<section
-class="section"
-id="ai">
-
-<div class="container trust">
-
-
-<div class="panel">
-
-<span class="tag">
-AI ASSISTANT
-</span>
-
-<h2>
-Помощник, который понимает задачу
-</h2>
-
-<p class="muted">
-
-Пользователь сможет написать обычными словами:
-
-«нужны передние колодки на Camry 70,
-2.5, 2019».
-
-Система извлечёт сущности,
-уточнит критичные параметры
-и покажет подтверждённые варианты.
-
-</p>
-
-
-<div class="ai">
-
-<div class="ai-title">
-
-<strong>
-🧠 AutoParts AI
-</strong>
-
-<span class="status">
-архитектура готова
-</span>
-
-</div>
-
-
-<p class="muted">
-
-Фото →
-OCR →
-кандидаты →
-проверка применимости →
-аналоги →
-комплект →
-заявка.
-
-</p>
-
-
-<button
-class="primary"
-style="min-height:44px"
-onclick="openDrawer('ai')">
-
-Попробовать сценарий
-
-</button>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<span class="tag">
-ДОВЕРИЕ
-</span>
-
-<h2>
-Не просто «дёшево», а понятно
-</h2>
-
-
-<div class="list">
-
-<div>
-
-<span class="check">
-✓
-</span>
-
-<span>
-
-<b>
-Оригинал / аналог
-</b>
-
-<br>
-
-<small class="muted">
-Ясно, что именно предлагается.
-</small>
-
-</span>
-
-</div>
-
-
-<div>
-
-<span class="check">
-✓
-</span>
-
-<span>
-
-<b>
-Применимость
-</b>
-
-<br>
-
-<small class="muted">
-Связь детали с автомобилем и источником.
-</small>
-
-</span>
-
-</div>
-
-
-<div>
-
-<span class="check">
-✓
-</span>
-
-<span>
-
-<b>
-Цена + наличие + срок
-</b>
-
-<br>
-
-<small class="muted">
-Сравнение поставок вместо одной цены.
-</small>
-
-</span>
-
-</div>
-
-
-<div>
-
-<span class="check">
-✓
-</span>
-
-<span>
-
-<b>
-Запрос, если не нашли
-</b>
-
-<br>
-
-<small class="muted">
-Нулевой поиск превращается в потенциальную продажу.
-</small>
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     SECURITY
-     ========================================================= -->
-
-<section
-class="section"
-id="security">
-
-<div class="container">
-
-<div class="section-head">
-
-<div>
-
-<h2>
-Защита закладывается с первого дня
-</h2>
-
-<p>
-Это UI-уровень будущей системы безопасности;
-реальные проверки выполняются сервером.
-</p>
-
-</div>
-
-</div>
-
-
-<div class="security">
-
-
-<div class="panel">
-
-<b>
-🔐 Секреты
-</b>
-
-<p class="muted">
-
-API-ключи,
-Telegram Bot Token
-и DATABASE_URL
-не хранятся в index.html.
-
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<b>
-🧱 Серверная валидация
-</b>
-
-<p class="muted">
-
-Frontend не считается доверенной средой.
-
-Все критичные операции
-повторно проверяются API.
-
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<b>
-🚦 Rate Limit
-</b>
-
-<p class="muted">
-
-Ограничение частоты запросов
-и защита публичных API
-от злоупотреблений.
-
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<b>
-👤 Роли
-</b>
-
-<p class="muted">
-
-Клиент, менеджер,
-администратор
-и отдельные права
-на критичные действия.
-
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<b>
-📝 Audit Log
-</b>
-
-<p class="muted">
-
-Логирование изменений каталога,
-заказов, прав
-и важных административных действий.
-
-</p>
-
-</div>
-
-
-<div class="panel">
-
-<b>
-💾 Backup
-</b>
-
-<p class="muted">
-
-Резервное копирование БД
-и проверка восстановления,
-а не просто наличие архивов.
-
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     ADMIN
-     ========================================================= -->
-
-<section
-class="section"
-id="admin">
-
-<div class="container">
-
-<div class="section-head">
-
-<div>
-
-<h2>
-Админка: центр управления Hub
-</h2>
-
-<p>
-Все идеи из нашего списка «Админка»
-закладываются в структуру интерфейса.
-</p>
-
-</div>
-
-
-<button
-class="secondary"
-onclick="openDrawer('admin')">
-
-Открыть демо
-
-</button>
-
-</div>
-
-
-<div class="card admin-preview">
-
-
-<aside class="sidebar">
-
-<div class="sideitem active">
-📊 Обзор
-</div>
-
-<div class="sideitem">
-🔎 Поиски
-</div>
-
-<div class="sideitem">
-📦 Каталог
-</div>
-
-<div class="sideitem">
-🏭 Поставщики
-</div>
-
-<div class="sideitem">
-🧾 Заказы
-</div>
-
-<div class="sideitem">
-🤖 AI
-</div>
-
-<div class="sideitem">
-🛡️ Безопасность
-</div>
-
-<div class="sideitem">
-⚖️ Право
-</div>
-
-</aside>
-
-
-<div class="dash">
-
-
-<div class="dashcards">
-
-<div class="dashcard">
-
-<small class="muted">
-Поисков сегодня
-</small>
-
-<br>
-
-<b>
-1 284
-</b>
-
-</div>
-
-
-<div class="dashcard">
-
-<small class="muted">
-Без результата
-</small>
-
-<br>
-
-<b>
-73
-</b>
-
-</div>
-
-
-<div class="dashcard">
-
-<small class="muted">
-Заявок
-</small>
-
-<br>
-
-<b>
-46
-</b>
-
-</div>
-
-
-<div class="dashcard">
-
-<small class="muted">
-Конверсия
-</small>
-
-<br>
-
-<b>
-3,6%
-</b>
-
-</div>
-
-</div>
-
-
-<div style="height:15px">
-</div>
-
-
-<div class="notice">
-
-⚠️ Демонстрационные цифры.
-
-В production они должны приходить
-только из защищённого API и БД.
-
-</div>
-
-
-<div style="height:15px">
-</div>
-
-
-<div class="panel">
-
-<b>
-Что отслеживает админка
-</b>
-
-<p class="muted">
-
-популярные запросы ·
-нулевые запросы ·
-ошибки релевантности ·
-растущие модели ·
-товары без фото ·
-аналоги ·
-цены/остатки ·
-поставщики ·
-заявки ·
-Telegram ·
-AI ·
-аудит ·
-безопасность.
-
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================================================
-     ARCHITECTURE
-     ========================================================= -->
-
-<section class="section">
-
-<div class="container">
-
-<div class="panel">
-
-<span class="tag">
-ROADMAP
-</span>
-
-<h2>
-Код разделён правильно
-</h2>
-
-<p class="muted">
-
-Этот index.html отвечает за интерфейс.
-
-Данные, поиск, авторизацию,
-БД, поставщиков, Telegram,
-AI и безопасность должны жить
-на сервере и в отдельных модулях.
-
-Так проект можно масштабировать,
-тестировать и защищать.
-
-</p>
-
-
-<div class="notice">
-
-Важно:
-
-фотографии и демонстрационные предложения
-в прототипе не являются реальным каталогом.
-
-Перед коммерческим запуском подключаем
-лицензированные источники
-и собственные данные.
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</main>
-
-
-<!-- =========================================================
-     FOOTER
-     ========================================================= -->
-
-<footer class="footer">
-
-<div class="container">
-
-<b>
-AutoParts Hub · ХАБ-2026
-</b>
-
-<p>
-Интеллектуальная платформа поиска
-и подбора автозапчастей.
-Frontend prototype.
-</p>
-
-</div>
-
-</footer>
-
-
-<!-- =========================================================
-     DRAWER
-     ========================================================= -->
-
-<div
-class="drawer"
-id="drawer"
-onclick="if(event.target===this)closeDrawer()">
-
-<div class="drawer-panel">
-
-
-<div class="drawer-head">
-
-<h2 id="drawerTitle">
-Запрос
-</h2>
-
-<button
-class="close"
-onclick="closeDrawer()">
-
-✕
-
-</button>
-
-</div>
-
-
-<div id="drawerContent">
-</div>
-
-
-</div>
-
-</div>
-
-
-<div
-class="toast"
-id="toast">
-</div>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-     ========================================================= -->
-
-<script>
-
-const API_BASE = '';
-
-
-/* =========================================================
-   DEMO PRODUCTS
-   ========================================================= */
-
-const demoProducts = [
-
-{
-    id:1,
-    brand:'Toyota',
-    article:'04465-33450',
-    name:'Передние тормозные колодки',
-    price:4200,
-    fit:'Toyota Camry',
-
-    img:
-    'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=900&q=80'
-},
-
-{
-    id:2,
-    brand:'MANN-FILTER',
-    article:'W 712/95',
-    name:'Масляный фильтр',
-    price:1200,
-    fit:'Toyota / Lexus',
-
-    img:
-    'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=900&q=80'
-},
-
-{
-    id:3,
-    brand:'Bosch',
-    article:'0 986 479 123',
-    name:'Тормозной диск',
-    price:6800,
-    fit:'Европейские модели',
-
-    img:
-    'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=900&q=80'
-},
-
-{
-    id:4,
-    brand:'Sachs',
-    article:'3000 951 877',
-    name:'Комплект сцепления',
-    price:24500,
-    fit:'Легковые / LCV',
-
-    img:
-    'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80'
-}
-
-];
-
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-function toast(msg){
-
-    const t =
-        document.getElementById('toast');
-
-    t.textContent = msg;
-
-    t.classList.add('show');
-
-    setTimeout(
-        () => t.classList.remove('show'),
-        3000
-    );
-}
-
-
-/* =========================================================
-   DRAWER
-   ========================================================= */
-
-function openDrawer(type){
-
-    const drawer =
-        document.getElementById('drawer');
-
-    const title =
-        document.getElementById('drawerTitle');
-
-    const content =
-        document.getElementById('drawerContent');
-
-    let html = '';
-
-
-    /* REQUEST */
-
-    if(type === 'request'){
-
-        title.textContent =
-            'Запрос на подбор';
-
-
-        html = `
-
-<p class="muted">
-
-Если поиск не дал точного результата —
-отправьте запрос.
-
-В production он уйдёт
-в API, БД и Telegram/CRM.
-
-</p>
-
-
-<form
-class="form"
-onsubmit="submitRequest(event)">
-
-<input
-name="name"
-placeholder="Ваше имя">
-
-
-<input
-name="contact"
-required
-placeholder="Телефон или Telegram">
-
-
-<input
-name="vin"
-placeholder="VIN / Frame">
-
-
-<input
-name="vehicle"
-placeholder="Автомобиль: марка, модель, год, двигатель">
-
-
-<textarea
-name="query"
-required
-placeholder="Какая запчасть нужна?">
-</textarea>
-
-
-<button class="primary">
-
-Отправить запрос
-
-</button>
-
-</form>
-
-`;
-
-    }
-
-
-    /* AI */
-
-    else if(type === 'ai'){
-
-        title.textContent =
-            'AI-помощник';
-
-
-        html = `
-
-<div class="ai">
-
-<b>
-Опишите задачу обычными словами
-</b>
-
-
-<form
-class="form"
-onsubmit="aiDemo(event)">
-
-
-<textarea
-name="text"
-required
-placeholder="Например: нужна передняя ступица на Volvo FH 2017, левую сторону, желательно оригинал или хороший аналог">
-</textarea>
-
-
-<button class="primary">
-
-Разобрать запрос
-
-</button>
-
-</form>
-
-
-<div id="aiResult">
-</div>
-
-</div>
-
-`;
-
-    }
-
-
-    /* ADMIN */
-
-    else if(type === 'admin'){
-
-        title.textContent =
-            'Админка Hub';
-
-
-        html = `
-
-<div class="list">
-
-<div>
-📊 Аналитика поиска и конверсия
-</div>
-
-<div>
-🔎 Нулевые запросы и потерянный спрос
-</div>
-
-<div>
-📦 Каталог, аналоги, фото, применимость
-</div>
-
-<div>
-🏭 Поставщики, цены, остатки, сроки
-</div>
-
-<div>
-🧾 Заявки, заказы, статусы
-</div>
-
-<div>
-🤖 AI/OCR/фото и модерация
-</div>
-
-<div>
-🛡️ Роли, 2FA, аудит, лимиты, бэкапы
-</div>
-
-<div>
-⚖️ Правовые документы и контроль источников
-</div>
-
-</div>
-
-`;
-
-    }
-
-
-    /* MOBILE MENU */
-
-    else{
-
-        title.textContent =
-            'Меню';
-
-
-        html = `
-
-<div class="list">
-
-<div>
-<a href="#catalog"
-onclick="closeDrawer()">
-📦 Каталог
-</a>
-</div>
-
-<div>
-<a href="#ai"
-onclick="closeDrawer()">
-🧠 ИИ-помощник
-</a>
-</div>
-
-<div>
-<a href="#security"
-onclick="closeDrawer()">
-🛡️ Защита
-</a>
-</div>
-
-<div>
-<a href="#admin"
-onclick="closeDrawer()">
-📊 Админка
-</a>
-</div>
-
-</div>
-
-`;
-
-    }
-
-
-    content.innerHTML = html;
-
-    drawer.classList.add('open');
-}
-
-
-/* =========================================================
-   CLOSE DRAWER
-   ========================================================= */
-
-function closeDrawer(){
-
-    document
-        .getElementById('drawer')
-        .classList.remove('open');
-
-}
-
-
-/* =========================================================
-   REQUEST
-   ========================================================= */
-
-function submitRequest(e){
-
-    e.preventDefault();
-
-    const f =
-        new FormData(e.target);
-
-
-    fetch(
-        API_BASE + '/api/requests',
-        {
-
-            method:'POST',
-
-            headers:{
-                'Content-Type':
-                    'application/json'
-            },
-
-            body:
-                JSON.stringify(
-                    Object.fromEntries(f)
-                )
-
-        }
-    )
-
-    .then(r => {
-
-        if(!r.ok){
-            throw new Error();
-        }
-
-        return r.json();
-
-    })
-
-    .then(x => {
-
-        toast(
-            'Заявка создана: ' +
-            (x.id || 'OK')
-        );
-
-        closeDrawer();
-
-    })
-
-    .catch(() => {
-
-        toast(
-            'Демо: форма готова. ' +
-            'Подключите backend /api/requests.'
-        );
-
-    });
-
-}
-
-
-/* =========================================================
-   AI DEMO
-   ========================================================= */
-
-function aiDemo(e){
-
-    e.preventDefault();
-
-
-    const text =
-        new FormData(e.target)
-        .get('text');
-
-
-    document
-        .getElementById('aiResult')
-        .innerHTML = `
-
-<div
-class="notice"
-style="margin-top:14px">
-
-ИИ выделит:
-
-<b>деталь</b>
-→
-<b>автомобиль</b>
-→
-<b>год/двигатель</b>
-→
-<b>сторону/позицию</b>
-→
-<b>оригинал/аналог</b>.
-
-<br><br>
-
-Ваш запрос:
-
-${escapeHtml(text)}
-
-<br><br>
-
-Следующий этап —
-реальный AI API + каталог.
-
-</div>
-
-`;
-
-}
-
-
-/* =========================================================
-   HTML ESCAPE
-   ========================================================= */
-
-function escapeHtml(s){
-
-    return String(s).replace(
-        /[&<>"']/g,
-
-        m => ({
-
-            '&':'&amp;',
-            '<':'&lt;',
-            '>':'&gt;',
-            '"':'&quot;',
-            "'":'&#039;'
-
-        }[m])
-
-    );
-
-}
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-async function doSearch(){
-
-    const q =
-        document
-        .getElementById('searchInput')
-        .value
-        .trim();
-
-
-    if(!q){
-
-        toast(
-            'Введите артикул, VIN, название или описание'
-        );
-
-        return;
-
-    }
-
-
-    try{
-
-        const r =
-            await fetch(
-                API_BASE +
-                '/api/catalog?q=' +
-                encodeURIComponent(q)
-            );
-
-
-        if(!r.ok){
-            throw new Error();
-        }
-
-
-        const data =
-            await r.json();
-
-
-        toast(
-            `Поиск выполнен: ${
-                Array.isArray(data.items)
-                    ? data.items.length
-                    : 0
-            } результатов`
-        );
-
-
-    }catch(e){
-
-        toast(
-            'Интерфейс готов. ' +
-            'Подключите backend API ' +
-            'для реального каталога.'
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   QUICK SEARCH
-   ========================================================= */
-
-function quickSearch(q){
-
-    document
-        .getElementById('searchInput')
-        .value = q;
-
-
-    document
-        .getElementById('searchInput')
-        .focus();
-
-
-    doSearch();
-
-}
-
-
-/* =========================================================
-   ENTER SEARCH
-   ========================================================= */
-
-document
-.getElementById('searchInput')
-.addEventListener(
-    'keydown',
-    e => {
-
-        if(e.key === 'Enter'){
-
-            doSearch();
-
-        }
-
-    }
-);
-
-</script>
+        <h2>Опиши деталь</h2>
+
+        <p>
+          Напиши всё, что знаешь о детали.
+        </p>
+
+      </div>
+
+      <form id="ai-form" class="request-form">
+
+        <label>
+          <span>Описание</span>
+
+          <textarea
+            id="ai-input"
+            name="prompt"
+            rows="6"
+            placeholder="Например: нужна деталь возле переднего колеса DAF XF, похожа на металлический кронштейн…"
+            required
+          ></textarea>
+
+        </label>
+
+        <button class="primary-button" type="submit">
+          Найти с помощью AI
+          <span>✦</span>
+        </button>
+
+        <div id="ai-status" class="form-status"></div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- BACKGROUND CATALOG -->
+  <script id="hab-background-catalog" type="application/json">
+  {
+    "cars": [
+      {
+        "file": "/assets/backgrounds/cars/cars-01.webp",
+        "title": "Premium Road",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-02.webp",
+        "title": "Urban Night",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-03.webp",
+        "title": "Rain Drive",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-04.webp",
+        "title": "Sunset Highway",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-05.webp",
+        "title": "Studio Light",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-06.webp",
+        "title": "Night City",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-07.webp",
+        "title": "Mountain Road",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-08.webp",
+        "title": "Wet Asphalt",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-09.webp",
+        "title": "Premium Garage",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/cars/cars-10.webp",
+        "title": "Dynamic Road",
+        "mode": "motion"
+      }
+    ],
+
+    "moto": [
+      {
+        "file": "/assets/backgrounds/moto/moto-01.webp",
+        "title": "Sport Night",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-02.webp",
+        "title": "Neon Ride",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-03.webp",
+        "title": "Mountain Ride",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-04.webp",
+        "title": "Rain Motion",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-05.webp",
+        "title": "Sunset Sport",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-06.webp",
+        "title": "Studio Bike",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-07.webp",
+        "title": "Highway Motion",
+        "mode": "motion"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-08.webp",
+        "title": "Dark Garage",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-09.webp",
+        "title": "City Lights",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/moto/moto-10.webp",
+        "title": "Adventure",
+        "mode": "day"
+      }
+    ],
+
+    "truck": [
+      {
+        "file": "/assets/backgrounds/truck/truck-01.webp",
+        "title": "Tuned Tractor",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-02.webp",
+        "title": "Highway King",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-03.webp",
+        "title": "Rain Truck",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-04.webp",
+        "title": "Sunset Transport",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-05.webp",
+        "title": "Truck Service",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-06.webp",
+        "title": "Night Highway",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-07.webp",
+        "title": "Mountain Transport",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-08.webp",
+        "title": "Wet Road",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-09.webp",
+        "title": "Premium Garage",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/truck/truck-10.webp",
+        "title": "Dynamic Tractor",
+        "mode": "motion"
+      }
+    ],
+
+    "trailer": [
+      {
+        "file": "/assets/backgrounds/trailer/trailer-01.webp",
+        "title": "Logistics Road",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-02.webp",
+        "title": "Night Logistics",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-03.webp",
+        "title": "Rain Transport",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-04.webp",
+        "title": "Sunset Freight",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-05.webp",
+        "title": "Service Yard",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-06.webp",
+        "title": "Highway Freight",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-07.webp",
+        "title": "Wet Freight",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-08.webp",
+        "title": "Night Yard",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-09.webp",
+        "title": "Premium Trailer",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/trailer/trailer-10.webp",
+        "title": "Moving Freight",
+        "mode": "motion"
+      }
+    ],
+
+    "bus": [
+      {
+        "file": "/assets/backgrounds/bus/bus-01.webp",
+        "title": "City Bus",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-02.webp",
+        "title": "Night City",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-03.webp",
+        "title": "Rain Transit",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-04.webp",
+        "title": "Tourist Route",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-05.webp",
+        "title": "Sunset Bus",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-06.webp",
+        "title": "Bus Service",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-07.webp",
+        "title": "Night Transport",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-08.webp",
+        "title": "Wet City",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-09.webp",
+        "title": "Premium Coach",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/bus/bus-10.webp",
+        "title": "Dynamic Transit",
+        "mode": "motion"
+      }
+    ],
+
+    "commercial": [
+      {
+        "file": "/assets/backgrounds/commercial/commercial-01.webp",
+        "title": "Delivery Day",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-02.webp",
+        "title": "Delivery Night",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-03.webp",
+        "title": "Rain Delivery",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-04.webp",
+        "title": "Sunset Van",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-05.webp",
+        "title": "Service Van",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-06.webp",
+        "title": "Urban Logistics",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-07.webp",
+        "title": "Night Logistics",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-08.webp",
+        "title": "Wet Delivery",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-09.webp",
+        "title": "Premium Van",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/commercial/commercial-10.webp",
+        "title": "Moving Van",
+        "mode": "motion"
+      }
+    ],
+
+    "special": [
+      {
+        "file": "/assets/backgrounds/special/special-01.webp",
+        "title": "Construction",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-02.webp",
+        "title": "Night Construction",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-03.webp",
+        "title": "Rain Construction",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-04.webp",
+        "title": "Sunset Machinery",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-05.webp",
+        "title": "Heavy Service",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-06.webp",
+        "title": "Quarry",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-07.webp",
+        "title": "Industrial Night",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-08.webp",
+        "title": "Wet Machinery",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-09.webp",
+        "title": "Machine Workshop",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/special/special-10.webp",
+        "title": "Heavy Motion",
+        "mode": "motion"
+      }
+    ],
+
+    "universal": [
+      {
+        "file": "/assets/backgrounds/universal/universal-01.webp",
+        "title": "Mixed Fleet",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-02.webp",
+        "title": "Mixed Fleet Night",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-03.webp",
+        "title": "Rain Fleet",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-04.webp",
+        "title": "Sunset Fleet",
+        "mode": "sunset"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-05.webp",
+        "title": "Modern Garage",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-06.webp",
+        "title": "Highway Fleet",
+        "mode": "day"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-07.webp",
+        "title": "Night Highway",
+        "mode": "night"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-08.webp",
+        "title": "Wet Highway",
+        "mode": "rain"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-09.webp",
+        "title": "Premium Workshop",
+        "mode": "studio"
+      },
+      {
+        "file": "/assets/backgrounds/universal/universal-10.webp",
+        "title": "Dynamic Fleet",
+        "mode": "motion"
+      }
+    ]
+  }
+  </script>
+
+  <script src="/app.js" defer></script>
 
 </body>
 </html>
