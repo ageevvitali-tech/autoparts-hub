@@ -1,0 +1,34 @@
+{
+  "project": "ХАБ-2026",
+  "version": "v0.8.0",
+  "generated_assets": 86,
+  "format": "WebP",
+  "source": "AI-generated assets created for this project",
+  "external_urls": false,
+  "sectors": {
+    "360": 1,
+    "brand": 1,
+    "bus": 10,
+    "cars": 10,
+    "commercial": 10,
+    "interior": 1,
+    "lighting-effects": 1,
+    "moto": 10,
+    "parts": 1,
+    "scene-dynamic": 1,
+    "special": 10,
+    "trailer": 10,
+    "truck": 10,
+    "universal": 10
+  },
+  "effects": {
+    "scene_transition": "crossfade + Ken Burns scale",
+    "headlights": "CSS layered glow + flash mode",
+    "lighting": "segment-specific color temperature and beam layer",
+    "sound": "Web Audio micro-engine sounds after user gesture",
+    "weather": "scene metadata classes: day/night/rain/snow/sunset/studio/motion"
+  },
+  "scene_count": 175,
+  "local_only_backgrounds": true,
+  "visual_system": "cinematic-dark-v0.8"
+}

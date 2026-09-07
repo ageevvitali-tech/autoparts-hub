@@ -1,0 +1,14 @@
+{
+  "name": "hab-2026-autoparts-hub",
+  "version": "0.9.2",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js",
+    "smoke": "node scripts/smoke-test.mjs"
+  }
+}

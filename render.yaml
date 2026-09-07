@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: hab-2026
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
