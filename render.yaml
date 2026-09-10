@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: autoparts-hub
+    runtime: node
+    plan: free
+
+    buildCommand: npm install
+    startCommand: npm start
+
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 10000
+
+      - key: DATABASE_URL
+        sync: false
+
+      - key: ELASTICSEARCH_URL
+        sync: false
+
+      - key: ELASTICSEARCH_USERNAME
+        sync: false
+
+      - key: ELASTICSEARCH_PASSWORD
+        sync: false
+
+      - key: JWT_SECRET
+        sync: false
+
+      - key: JWT_REFRESH_SECRET
+        sync: false
+
+      - key: TECDOC_API_URL
+        sync: false
+
+      - key: TECDOC_API_KEY
+        sync: false
+
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+
+      - key: AI_API_KEY
+        sync: false
